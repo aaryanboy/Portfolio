@@ -53,9 +53,9 @@ export default function ContactPage() {
               <div className={styles.infoItem}>
                 <h3>Socials</h3>
                 <div className={styles.socialLinks}>
-                  <a href="#">LinkedIn</a>
-                  <a href="#">GitHub</a>
-                  <a href="#">Twitter</a>
+                <a href="https://github.com/aaryanboy">GitHub</a>
+              <a href="https://www.linkedin.com/in/aryan-bajracharya/">LinkedIn</a>
+              <a href="https://www.instagram.com/aaryan_boy12/">Instagram</a>
                 </div>
               </div>
             </div>

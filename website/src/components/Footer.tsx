@@ -4,8 +4,7 @@ export default function Footer() {
   return (
     <footer className={styles.footer}>
       <div className="container">
-        <p>&copy; {new Date().getFullYear()} All Rights Reserved.</p>
-        <p>Built with Next.js & TypeScript</p>
+        <p>&copy; {new Date().getFullYear()} AT the end Of the day.</p>
       </div>
     </footer>
   );
