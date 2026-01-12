@@ -1,0 +1,138 @@
+.projects {
+    padding: 100px 0;
+    background: var(--card-bg);
+}
+
+.sectionTitle {
+    font-size: 2.5rem;
+    margin-bottom: 3rem;
+    text-align: center;
+}
+
+.sectionTitle span {
+    color: var(--accent);
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 2.5rem;
+}
+
+.card {
+    background: var(--background);
+    border-radius: 1.25rem;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow);
+    transition: transform 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-10px);
+}
+
+.imageWrapper {
+    position: relative;
+    aspect-ratio: 16 / 10;
+    overflow: hidden;
+}
+
+.image {
+    transition: transform 0.5s ease;
+}
+
+.card:hover .image {
+    transform: scale(1.1);
+}
+
+.overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    backdrop-filter: blur(4px);
+}
+
+.card:hover .overlay {
+    opacity: 1;
+}
+
+.btnGroup {
+    display: flex;
+    gap: 1rem;
+    transform: translateY(20px);
+    transition: all 0.3s ease;
+}
+
+.card:hover .btnGroup {
+    transform: translateY(0);
+}
+
+.viewBtn,
+.liveBtn {
+    padding: 0.6rem 1.25rem;
+    border-radius: 99px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.viewBtn {
+    background: transparent;
+    color: white;
+    border: 1px solid white;
+}
+
+.viewBtn:hover {
+    background: white;
+    color: black;
+}
+
+.liveBtn {
+    background: var(--accent);
+    color: white;
+    border: 1px solid var(--accent);
+}
+
+.liveBtn:hover {
+    background: transparent;
+    border-color: white;
+    color: white;
+}
+
+.content {
+    padding: 1.5rem;
+}
+
+.tags {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.tags span {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.content h3 {
+    font-size: 1.25rem;
+    margin-bottom: 0.75rem;
+}
+
+.content p {
+    color: var(--muted);
+    font-size: 0.95rem;
+}

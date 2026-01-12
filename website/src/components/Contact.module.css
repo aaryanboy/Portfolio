@@ -1,0 +1,62 @@
+.contact {
+    padding: 100px 0;
+}
+
+.card {
+    background: var(--card-bg);
+    padding: 4rem 2rem;
+    border-radius: 2rem;
+    text-align: center;
+    border: 1px solid var(--border);
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.sectionTitle {
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.sectionTitle span {
+    color: var(--accent);
+}
+
+.description {
+    color: var(--muted);
+    max-width: 500px;
+    margin: 0 auto 3rem;
+    font-size: 1.1rem;
+}
+
+.email {
+    display: block;
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+    color: var(--foreground);
+}
+
+.email:hover {
+    color: var(--accent);
+}
+
+.socials {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+}
+
+.socials a {
+    font-weight: 500;
+    color: var(--muted);
+}
+
+.socials a:hover {
+    color: var(--accent);
+}
+
+@media (max-width: 768px) {
+    .email {
+        font-size: 1.5rem;
+    }
+}

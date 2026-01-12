@@ -1,0 +1,23 @@
+.toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--card-bg);
+    color: var(--foreground);
+    font-size: 1.2rem;
+    box-shadow: var(--shadow);
+    transition: transform 0.2s ease, background 0.2s ease;
+    border: 1px solid var(--border);
+}
+
+.toggle:hover {
+    transform: scale(1.1);
+    background: var(--border);
+}
+
+.toggle:active {
+    transform: scale(0.95);
+}
