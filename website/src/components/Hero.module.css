@@ -3,37 +3,237 @@
     display: flex;
     align-items: center;
     padding-top: 80px;
+    position: relative;
+    overflow: hidden;
 }
 
+/* Atmospheric fog effect */
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background:
+        radial-gradient(ellipse 80% 50% at 50% 100%, rgba(201, 162, 39, 0.05) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 40% at 20% 80%, rgba(201, 162, 39, 0.03) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* ===== FLOATING PARTICLES ===== */
+.particles {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.particle {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: var(--accent);
+    border-radius: 50%;
+    opacity: 0;
+    animation: floatParticle 8s ease-in-out infinite;
+    box-shadow: 0 0 10px var(--accent), 0 0 20px var(--accent);
+}
+
+.particle:nth-child(1) {
+    left: 10%;
+    animation-delay: 0s;
+    animation-duration: 7s;
+}
+
+.particle:nth-child(2) {
+    left: 20%;
+    animation-delay: 1s;
+    animation-duration: 9s;
+}
+
+.particle:nth-child(3) {
+    left: 35%;
+    animation-delay: 2s;
+    animation-duration: 6s;
+}
+
+.particle:nth-child(4) {
+    left: 50%;
+    animation-delay: 0.5s;
+    animation-duration: 8s;
+}
+
+.particle:nth-child(5) {
+    left: 65%;
+    animation-delay: 1.5s;
+    animation-duration: 10s;
+}
+
+.particle:nth-child(6) {
+    left: 75%;
+    animation-delay: 2.5s;
+    animation-duration: 7s;
+}
+
+.particle:nth-child(7) {
+    left: 85%;
+    animation-delay: 0.8s;
+    animation-duration: 9s;
+}
+
+.particle:nth-child(8) {
+    left: 95%;
+    animation-delay: 1.8s;
+    animation-duration: 6s;
+}
+
+@keyframes floatParticle {
+    0% {
+        bottom: -10%;
+        opacity: 0;
+        transform: translateX(0) scale(0.5);
+    }
+
+    10% {
+        opacity: 0.8;
+    }
+
+    90% {
+        opacity: 0.8;
+    }
+
+    100% {
+        bottom: 110%;
+        opacity: 0;
+        transform: translateX(50px) scale(1);
+    }
+}
+
+/* ===== CORNER RUNES ===== */
+.cornerRune {
+    position: absolute;
+    width: 80px;
+    height: 80px;
+    color: var(--accent);
+    opacity: 0.4;
+    z-index: 2;
+    animation: runeGlow 4s ease-in-out infinite;
+}
+
+.cornerRune svg {
+    width: 100%;
+    height: 100%;
+}
+
+.topLeft {
+    top: 20px;
+    left: 20px;
+}
+
+.topRight {
+    top: 20px;
+    right: 20px;
+}
+
+.bottomLeft {
+    bottom: 20px;
+    left: 20px;
+}
+
+.bottomRight {
+    bottom: 20px;
+    right: 20px;
+}
+
+@keyframes runeGlow {
+
+    0%,
+    100% {
+        opacity: 0.3;
+        filter: drop-shadow(0 0 5px var(--accent));
+    }
+
+    50% {
+        opacity: 0.6;
+        filter: drop-shadow(0 0 15px var(--accent));
+    }
+}
+
+/* ===== MAIN CONTENT ===== */
 .container {
     display: grid;
     grid-template-columns: 1.2fr 0.8fr;
     align-items: center;
     gap: 4rem;
+    position: relative;
+    z-index: 3;
+}
+
+.content {
+    position: relative;
+}
+
+.runeDecor {
+    font-size: 2rem;
+    color: var(--accent);
+    margin-bottom: 1rem;
+    opacity: 0.8;
+    animation: float 3s ease-in-out infinite;
+    text-shadow: 0 0 20px var(--accent);
+}
+
+@keyframes float {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-8px);
+    }
 }
 
 .subtitle {
     color: var(--accent);
-    font-size: 1.25rem;
-    margin-bottom: 0.5rem;
+    font-size: 1.15rem;
+    margin-bottom: 0.75rem;
     font-weight: 500;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    font-family: 'Cinzel', serif;
+    text-shadow: 0 0 20px rgba(201, 162, 39, 0.3);
 }
 
 .title {
-    font-size: 4.5rem;
+    font-size: 5.5rem;
     line-height: 1.1;
     margin-bottom: 1.5rem;
+    font-family: 'Cinzel', serif;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    background: linear-gradient(180deg, var(--foreground) 0%, var(--foreground-dim) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    position: relative;
 }
 
 .title span {
-    color: var(--accent);
+    -webkit-text-fill-color: var(--accent);
+    text-shadow: 0 0 30px rgba(201, 162, 39, 0.6);
 }
 
 .description {
-    font-size: 1.125rem;
-    color: var(--muted);
-    max-width: 500px;
+    font-size: 1.35rem;
+    color: var(--foreground-dim);
+    max-width: 540px;
     margin-bottom: 2.5rem;
+    line-height: 1.85;
+    letter-spacing: 0.02em;
 }
 
 .actions {
@@ -41,31 +241,84 @@
     gap: 1.5rem;
 }
 
-.primaryBtn {
-    background: var(--accent);
-    color: white;
-    padding: 0.8rem 2rem;
-    border-radius: 8px;
+.primaryBtn,
+.secondaryBtn {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem 2rem;
     font-weight: 600;
-    transition: background 0.2s ease;
+    transition: all 0.4s ease;
+    font-family: 'Cinzel', serif;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    font-size: 0.9rem;
+    position: relative;
+    clip-path: polygon(0 0,
+            calc(100% - 12px) 0,
+            100% 12px,
+            100% 100%,
+            12px 100%,
+            0 calc(100% - 12px));
+}
+
+.btnIcon {
+    font-size: 1.1rem;
+    transition: transform 0.3s ease;
+}
+
+.primaryBtn {
+    background: transparent;
+    color: var(--accent);
+    border: 1px solid var(--accent);
+}
+
+.primaryBtn::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--accent);
+    opacity: 0;
+    z-index: -1;
+    transition: opacity 0.4s ease;
 }
 
 .primaryBtn:hover {
-    background: var(--accent-hover);
+    color: var(--background);
+    box-shadow:
+        0 0 30px rgba(201, 162, 39, 0.4),
+        inset 0 0 20px rgba(201, 162, 39, 0.1);
+    text-shadow: none;
+}
+
+.primaryBtn:hover::after {
+    opacity: 1;
+}
+
+.primaryBtn:hover .btnIcon {
+    transform: rotate(15deg) scale(1.2);
 }
 
 .secondaryBtn {
     border: 1px solid var(--border);
-    color: var(--foreground);
-    padding: 0.8rem 2rem;
-    border-radius: 8px;
-    font-weight: 600;
+    color: var(--foreground-dim);
+    background: transparent;
 }
 
 .secondaryBtn:hover {
-    border-color: var(--accent);
+    border-color: var(--accent-dim);
+    color: var(--accent);
+    box-shadow: 0 0 20px rgba(201, 162, 39, 0.2);
 }
 
+.secondaryBtn:hover .btnIcon {
+    transform: translateX(3px);
+}
+
+/* ===== IMAGE SECTION ===== */
 .imageWrapper {
     position: relative;
     display: flex;
@@ -73,29 +326,121 @@
     align-items: center;
 }
 
+/* Decorative frame around image */
+.imageWrapper::before {
+    content: '';
+    position: absolute;
+    width: calc(100% + 40px);
+    height: calc(100% + 40px);
+    border: 1px solid var(--accent-dim);
+    opacity: 0.4;
+    clip-path: polygon(0 20px,
+            20px 0,
+            calc(100% - 20px) 0,
+            100% 20px,
+            100% calc(100% - 20px),
+            calc(100% - 20px) 100%,
+            20px 100%,
+            0 calc(100% - 20px));
+}
+
+/* Animated rings */
+.ring,
+.ring2 {
+    position: absolute;
+    width: 450px;
+    height: 450px;
+    border: 1px solid var(--accent);
+    border-radius: 50%;
+    opacity: 0.2;
+    animation: ringPulse 4s ease-in-out infinite;
+}
+
+.ring2 {
+    width: 500px;
+    height: 500px;
+    animation-delay: 2s;
+    border-style: dashed;
+}
+
+@keyframes ringPulse {
+
+    0%,
+    100% {
+        transform: scale(0.95);
+        opacity: 0.1;
+    }
+
+    50% {
+        transform: scale(1.05);
+        opacity: 0.3;
+    }
+}
+
 .circle {
     position: absolute;
-    width: 350px;
-    height: 350px;
-    background: linear-gradient(135deg, var(--accent) 0%, #6366f1 100%);
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(201, 162, 39, 0.15) 0%, transparent 70%);
     border-radius: 50%;
-    filter: blur(80px);
-    opacity: 0.2;
+    filter: blur(60px);
     z-index: -1;
+    animation: circleGlow 5s ease-in-out infinite;
+}
+
+@keyframes circleGlow {
+
+    0%,
+    100% {
+        opacity: 0.4;
+        transform: scale(1);
+    }
+
+    50% {
+        opacity: 0.7;
+        transform: scale(1.05);
+    }
 }
 
 .image {
-    border-radius: 2rem;
+    border-radius: 0;
     object-fit: cover;
-    box-shadow: var(--shadow);
-    border: 1px solid var(--border);
+    box-shadow:
+        0 0 40px rgba(0, 0, 0, 0.8),
+        0 0 80px rgba(201, 162, 39, 0.1);
+    border: 1px solid var(--accent-dim);
+    clip-path: polygon(0 15px,
+            15px 0,
+            calc(100% - 15px) 0,
+            100% 15px,
+            100% calc(100% - 15px),
+            calc(100% - 15px) 100%,
+            15px 100%,
+            0 calc(100% - 15px));
+    transition: all 0.5s ease;
+    position: relative;
+    z-index: 2;
 }
 
+.image:hover {
+    box-shadow:
+        0 0 50px rgba(0, 0, 0, 0.9),
+        0 0 100px rgba(201, 162, 39, 0.2);
+    transform: scale(1.02);
+}
+
+/* ===== RESPONSIVE ===== */
 @media (max-width: 992px) {
     .container {
         grid-template-columns: 1fr;
         text-align: center;
         gap: 3rem;
+    }
+
+    .content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
     }
 
     .description {
@@ -104,9 +449,56 @@
 
     .actions {
         justify-content: center;
+        flex-wrap: wrap;
     }
 
     .title {
         font-size: 3.5rem;
+    }
+
+    .subtitle {
+        font-size: 1rem;
+    }
+
+    .cornerRune {
+        width: 50px;
+        height: 50px;
+    }
+
+    .ring,
+    .ring2 {
+        width: 350px;
+        height: 350px;
+    }
+
+    .ring2 {
+        width: 380px;
+        height: 380px;
+    }
+}
+
+@media (max-width: 480px) {
+    .title {
+        font-size: 2.5rem;
+    }
+
+    .actions {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .primaryBtn,
+    .secondaryBtn {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .cornerRune {
+        width: 40px;
+        height: 40px;
+    }
+
+    .particle {
+        display: none;
     }
 }

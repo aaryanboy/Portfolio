@@ -1,11 +1,56 @@
 .footer {
-    padding: 3rem 0;
-    border-top: 1px solid var(--border);
+    padding: 4rem 0 3rem;
+    position: relative;
     text-align: center;
     color: var(--muted);
-    font-size: 0.9rem;
+    font-size: 1rem;
+    background: var(--background);
+}
+
+/* Top decorative border */
+.footer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent 0%, var(--accent-dim) 20%, var(--accent) 50%, var(--accent-dim) 80%, transparent 100%);
+}
+
+/* Decorative symbol */
+.footer::after {
+    content: '◆';
+    position: absolute;
+    top: -6px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 10px;
+    color: var(--accent);
+    background: var(--background);
+    padding: 0 1rem;
 }
 
 .footer p {
-    margin: 0.25rem 0;
+    margin: 0.5rem 0;
+    font-family: 'Cormorant Garamond', serif;
+    letter-spacing: 0.05em;
+}
+
+.footer p:first-child {
+    font-family: 'Cinzel', serif;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    font-size: 0.8rem;
+    color: var(--foreground-dim);
+}
+
+.footer a {
+    color: var(--accent-dim);
+    transition: all 0.3s ease;
+}
+
+.footer a:hover {
+    color: var(--accent);
+    text-shadow: 0 0 10px rgba(201, 162, 39, 0.3);
 }

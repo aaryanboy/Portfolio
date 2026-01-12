@@ -2,31 +2,54 @@
     min-height: 100vh;
     display: flex;
     flex-direction: column;
+    background: var(--background);
 }
 
 .section {
-    padding: 120px 0 80px;
+    padding: 140px 0 80px;
     flex: 1;
+    position: relative;
+}
+
+/* Ambient background glow */
+.section::before {
+    content: '';
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60%;
+    height: 50%;
+    background: radial-gradient(ellipse, rgba(201, 162, 39, 0.03) 0%, transparent 60%);
+    pointer-events: none;
 }
 
 .header {
     text-align: center;
-    margin-bottom: 3rem;
+    margin-bottom: 4rem;
+    position: relative;
+    z-index: 1;
 }
 
 .header h1 {
     font-size: 3.5rem;
-    margin-bottom: 1rem;
+    margin-bottom: 1.25rem;
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
 }
 
 .header h1 span {
     color: var(--accent);
+    text-shadow: 0 0 30px rgba(201, 162, 39, 0.4);
 }
 
 .header p {
-    color: var(--muted);
-    font-size: 1.125rem;
-    margin-bottom: 2rem;
+    color: var(--foreground-dim);
+    font-size: 1.15rem;
+    margin-bottom: 2.5rem;
+    line-height: 1.8;
 }
 
 .actions {
@@ -35,16 +58,47 @@
 }
 
 .downloadBtn {
-    background: var(--accent);
-    color: white;
-    padding: 0.8rem 2rem;
-    border-radius: 8px;
+    background: transparent;
+    color: var(--accent);
+    padding: 1rem 2.5rem;
     font-weight: 600;
-    transition: background 0.2s ease;
+    transition: all 0.4s ease;
+    font-family: 'Cinzel', serif;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    font-size: 0.85rem;
+    position: relative;
+    border: 1px solid var(--accent);
+    clip-path: polygon(0 0,
+            calc(100% - 12px) 0,
+            100% 12px,
+            100% 100%,
+            12px 100%,
+            0 calc(100% - 12px));
+}
+
+.downloadBtn::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--accent);
+    opacity: 0;
+    z-index: -1;
+    transition: opacity 0.4s ease;
 }
 
 .downloadBtn:hover {
-    background: var(--accent-hover);
+    color: var(--background);
+    box-shadow:
+        0 0 30px rgba(201, 162, 39, 0.4),
+        inset 0 0 20px rgba(201, 162, 39, 0.1);
+}
+
+.downloadBtn:hover::after {
+    opacity: 1;
 }
 
 .resumeBox {
@@ -54,10 +108,41 @@
     aspect-ratio: 1 / 1.414;
     /* A4 Ratio */
     background: var(--card-bg);
-    border-radius: 1rem;
     overflow: hidden;
     border: 1px solid var(--border);
-    box-shadow: var(--shadow);
+    box-shadow:
+        0 20px 60px rgba(0, 0, 0, 0.6),
+        0 0 40px rgba(201, 162, 39, 0.1);
+    position: relative;
+    clip-path: polygon(0 20px,
+            20px 0,
+            calc(100% - 20px) 0,
+            100% 20px,
+            100% calc(100% - 20px),
+            calc(100% - 20px) 100%,
+            20px 100%,
+            0 calc(100% - 20px));
+}
+
+/* Inner frame decoration */
+.resumeBox::before {
+    content: '';
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    right: 10px;
+    bottom: 10px;
+    border: 1px solid var(--border);
+    pointer-events: none;
+    z-index: 10;
+    clip-path: polygon(0 15px,
+            15px 0,
+            calc(100% - 15px) 0,
+            100% 15px,
+            100% calc(100% - 15px),
+            calc(100% - 15px) 100%,
+            15px 100%,
+            0 calc(100% - 15px));
 }
 
 .viewer {
@@ -71,17 +156,28 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--muted);
+    color: var(--foreground-dim);
     font-weight: 500;
+    font-family: 'Cinzel', serif;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
 }
 
 @media (max-width: 768px) {
     .header h1 {
-        font-size: 2.75rem;
+        font-size: 2.5rem;
     }
 
     .resumeBox {
         aspect-ratio: auto;
         height: 600px;
+        clip-path: polygon(0 15px,
+                15px 0,
+                calc(100% - 15px) 0,
+                100% 15px,
+                100% calc(100% - 15px),
+                calc(100% - 15px) 100%,
+                15px 100%,
+                0 calc(100% - 15px));
     }
 }
