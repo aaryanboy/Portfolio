@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { ThemeProvider } from "@/context/ThemeContext";
+import AudioPlayer from "@/components/AudioPlayer";
 
 export const metadata: Metadata = {
   title: "My Portfolio | Software Developer",
@@ -17,6 +18,7 @@ export default function RootLayout({
       <body>
         <ThemeProvider>
           {children}
+          <AudioPlayer />
         </ThemeProvider>
       </body>
     </html>

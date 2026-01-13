@@ -22,9 +22,9 @@ export default function Navbar() {
           <a href="/">PORTFOLIO<span>.</span></a>
         </div>
         <div className={styles.links}>
-          <a href="/#about">About</a>
-          <a href="/#skills">Skills</a>
           <a href="/#projects">Projects</a>
+          <a href="/#skills">Skills</a>
+          <a href="/#about">About</a>
           <a href="/resume">Resume</a>
           <a href="/contact">Contact</a>
           <ThemeToggle />

@@ -6,13 +6,7 @@ export default function About() {
       <div className="container">
         <h2 className={styles.sectionTitle}>About Me<span>.</span></h2>
         <div className={styles.grid}>
-          <div className={styles.card}>
-            <h3>Who I am</h3>
-            <p>
-              I am a passionate software developer based in Nepal, with a strong foundation in building modern web applications. 
-              I love solving complex problems and turning ideas into reality through code.
-            </p>
-          </div>
+
           <div className={styles.card}>
             <h3>What I do</h3>
             <p>

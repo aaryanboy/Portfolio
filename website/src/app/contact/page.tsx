@@ -44,11 +44,11 @@ export default function ContactPage() {
             <div className={styles.info}>
               <div className={styles.infoItem}>
                 <h3>Email</h3>
-                <p>hello@aaryan.me</p>
+                <p>aaryanboy12@gmail.com</p>
               </div>
               <div className={styles.infoItem}>
                 <h3>Location</h3>
-                <p>Kathmandu, Nepal</p>
+                <p>Bhaktapur, Nepal</p>
               </div>
               <div className={styles.infoItem}>
                 <h3>Socials</h3>

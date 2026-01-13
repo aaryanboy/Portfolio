@@ -72,7 +72,7 @@ export default function Hero() {
           <div className={styles.ring2}></div>
           <div className={styles.circle}></div>
           <Image 
-            src="/images/profile.png" 
+            src="/images/profile.jpg" 
             alt="Profile Avatar" 
             width={400} 
             height={400} 

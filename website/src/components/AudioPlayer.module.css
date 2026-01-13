@@ -1,0 +1,149 @@
+.audioPlayer {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    z-index: 1000;
+}
+
+.fireWrapper {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    width: 120px;
+    height: 150px;
+}
+
+/* Fire Container */
+.fireContainer {
+    position: absolute;
+    bottom: 20px;
+    width: 80%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 5;
+    display: flex;
+    justify-content: center;
+}
+
+/* Fire Particles */
+.fireParticle {
+    position: absolute;
+    bottom: 0px;
+    width: 6px;
+    height: 6px;
+    background: #ffaa00;
+    border-radius: 50%;
+    opacity: 0;
+    transform-origin: center bottom;
+    animation: riseFire 2s ease-out infinite;
+    filter: blur(2px);
+    box-shadow: 0 0 10px #ff5500;
+}
+
+@keyframes riseFire {
+    0% {
+        bottom: 20%;
+        opacity: 0;
+        transform: scale(0.3) translateX(0);
+        background: #ff5500;
+    }
+
+    10% {
+        opacity: 0.8;
+    }
+
+    100% {
+        bottom: 120%;
+        opacity: 0;
+        transform: scale(0) translateX(var(--drift, 0px));
+        background: #ffff00;
+    }
+}
+
+/* Main Toggle Button */
+.toggleBtn {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    background: transparent;
+    transition: all 0.3s ease;
+    padding: 0;
+    position: absolute;
+    bottom: 0;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Extinguished State (Ash/Coal) */
+.toggleBtn:not(.playing) {
+    background: #1a1a1a;
+    border: 2px solid #333;
+    box-shadow:
+        inset 0 0 20px rgba(0, 0, 0, 0.9),
+        0 4px 10px rgba(0, 0, 0, 0.5);
+}
+
+.toggleBtn:not(.playing):hover {
+    transform: scale(1.05);
+    border-color: #555;
+    box-shadow:
+        inset 0 0 20px rgba(0, 0, 0, 0.9),
+        0 4px 15px rgba(0, 0, 0, 0.6);
+}
+
+.ashState {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+
+.musicNote {
+    color: #444;
+    font-size: 24px;
+    filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.5));
+    transition: color 0.3s;
+}
+
+.toggleBtn:hover .musicNote {
+    color: #666;
+}
+
+/* Playing State - Fire is visible */
+.toggleBtn.playing {
+    width: 150px;
+    height: 200px;
+    bottom: -30px;
+    /* Offset to anchor fire properly */
+    background: transparent;
+    border: none;
+    box-shadow: none;
+}
+
+/* The GIF */
+.fireGif {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    mix-blend-mode: screen;
+    filter: drop-shadow(0 0 20px rgba(255, 85, 0, 0.3));
+    pointer-events: none;
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+    .audioPlayer {
+        bottom: 20px;
+        right: 20px;
+    }
+
+    .toggleBtn.playing {
+        width: 120px;
+        height: 160px;
+    }
+}
