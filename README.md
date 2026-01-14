@@ -1,1 +1,1 @@
-go to https://aaranboy.vercel.app/ 
+go to https://aaryanboy.vercel.app/ 
