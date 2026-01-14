@@ -4,7 +4,7 @@ import { ThemeProvider } from "@/context/ThemeContext";
 import AudioPlayer from "@/components/AudioPlayer";
 
 export const metadata: Metadata = {
-  title: "My Portfolio | Software Developer",
+  title: "Aryan Bajracharya",
   description: "A professional portfolio showcasing my work and skills.",
 };
 
