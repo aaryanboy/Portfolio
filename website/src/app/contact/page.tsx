@@ -1,11 +1,26 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import styles from './ContactPage.module.css';
+import emailjs from '@emailjs/browser';
 
 export default function ContactPage() {
+  const form = useRef<HTMLFormElement>(null);
+  
+  // =========================================================================
+  // EMAILJS CONFIGURATION
+  // 1. Log in to https://www.emailjs.com/
+  // 2. Create an account and add an Email Service (e.g., Gmail)
+  // 3. Create an Email Template with variables: {{name}}, {{email}}, {{subject}}, {{message}}
+  // 4. Paste your IDs below:
+  // =========================================================================
+  const SERVICE_ID = "service_vocgy1k";
+  const TEMPLATE_ID = "template_xq59w69";
+  const PUBLIC_KEY = "Y6oMB_oUuvkqvI5aH";
+  // =========================================================================
+
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -19,15 +34,27 @@ export default function ContactPage() {
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    if (!SERVICE_ID) {
+      alert("Email service not configured.");
+      return;
+    }
+
     setStatus('sending');
-    
-    // Simulate API call
-    setTimeout(() => {
-      setStatus('success');
-      setFormData({ name: '', email: '', subject: '', message: '' });
-    }, 1500);
+
+    // Using sendForm automatically maps input 'name' attributes to template variables
+    if (form.current) {
+        emailjs.sendForm(SERVICE_ID, TEMPLATE_ID, form.current, PUBLIC_KEY)
+        .then((result) => {
+            console.log(result.text);
+            setStatus('success');
+            setFormData({ name: '', email: '', subject: '', message: '' });
+        }, (error) => {
+            console.log(error.text);
+            setStatus('error');
+        });
+    }
   };
 
   return (
@@ -60,7 +87,7 @@ export default function ContactPage() {
               </div>
             </div>
 
-            <form className={styles.form} onSubmit={handleSubmit}>
+            <form ref={form} className={styles.form} onSubmit={handleSubmit}>
               <div className={styles.inputGroup}>
                 <label htmlFor="name">Name</label>
                 <input 
@@ -120,6 +147,11 @@ export default function ContactPage() {
               {status === 'success' && (
                 <div className={styles.successMessage}>
                   Thank you! Your message has been sent successfully.
+                </div>
+              )}
+               {status === 'error' && (
+                <div className={styles.successMessage} style={{color: '#ff6b6b'}}>
+                  Something went wrong. Please try again later.
                 </div>
               )}
             </form>

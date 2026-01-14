@@ -7,8 +7,8 @@ export default function AudioPlayer() {
   const [isPlaying, setIsPlaying] = useState(false);
   const audioRef = useRef<HTMLAudioElement>(null);
 
-  // Peaceful ambient music (royalty-free)
-  const audioSrc = "https://cdn.pixabay.com/audio/2024/11/04/audio_a32d256a40.mp3";
+  // Local ambient music
+  const audioSrc = "/music/musicccc.mp3";
 
   // Default volume
   useEffect(() => {
