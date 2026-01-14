@@ -6,7 +6,7 @@ const projects = [
   {
     title: "Full Stack E-Commerce Platform",
     description: "A modern, full-featured e-commerce platform built with Next.js, MongoDB, and eSewa payment integration. Designed for mini markets with dual-role functionality for owners and customers.",
-    image: "/images/ecommerse.jpg",
+    image: "/images/ecommerse.png",
     tags: ["Next.js", "MongoDB", "eSewa API"],
     github: "https://github.com/aaryanboy/ecom",
     live: "https://na-pukhu-mini-market.vercel.app/"
@@ -14,7 +14,7 @@ const projects = [
   {
     title: "PunyaJewellery",
     description: "Punya Jewelry Shop - Website Welcome to the Punya Jewelry Shop project! This website was built using React, Next.js, and Tailwind CSS to provide a sleek, responsive, and user-friendly interface for customers to explore beautiful jewelry pieces. The website allows users to view products, contact the store, and learn more about the jewelry collection.",
-    image: "/images/jewelry.jpg",
+    image: "/images/jewelry.png",
     tags: ["React", "Next.js", "Tailwind CSS"],
     github: "https://github.com/aaryanboy/PunyaJewellery",
     live: ""
@@ -22,7 +22,7 @@ const projects = [
   {
     title: "TopDown RPG",
     description: "A 2D game made with Kaboom.js and vite config.",
-    image: "/images/rpg-topdown.jpg",
+    image: "/images/rpg-topdown.png",
     tags: ["React Native", "KaboomJS", "Vite"],
     github: "https://github.com/aaryanboy/jsgame",
     live: "https://jsgame-rpg.vercel.app/" 
