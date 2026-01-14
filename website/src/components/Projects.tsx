@@ -25,7 +25,7 @@ const projects = [
     image: "/images/project2.png",
     tags: ["React Native", "KaboomJS", "Vite"],
     github: "https://github.com/aaryanboy/jsgame",
-    live: "" 
+    live: "https://jsgame-rpg.vercel.app/" 
   }
 ];
 
