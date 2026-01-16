@@ -56,9 +56,9 @@ export default function Hero() {
             I specialize in full-stack development with a focus on modern web technologies.
           </p>
           <div className={styles.actions}>
-            <a href="/#projects" className={styles.primaryBtn}>
+            <a href="/resume" className={styles.primaryBtn}>
               <span className={styles.btnIcon}>⚔</span>
-              View Projects
+              View Resume
             </a>
             <a href="/contact" className={styles.secondaryBtn}>
               <span className={styles.btnIcon}>✉</span>
