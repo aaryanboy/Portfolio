@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import Link from 'next/link';
 import styles from './Navbar.module.css';
 import ThemeToggle from './ThemeToggle';
 
@@ -19,14 +20,14 @@ export default function Navbar() {
     <nav className={`${styles.nav} ${isScrolled ? styles.scrolled : ''}`}>
       <div className={`container ${styles.container}`}>
         <div className={styles.logo}>
-          <a href="/">PORTFOLIO<span>.</span></a>
+          <Link href="/">PORTFOLIO<span>.</span></Link>
         </div>
         <div className={styles.links}>
-          <a href="/#projects">Projects</a>
-          <a href="/#skills">Skills</a>
-          <a href="/#about">About</a>
-          <a href="/resume">Resume</a>
-          <a href="/contact">Contact</a>
+          <Link href="/#projects">Projects</Link>
+          <Link href="/#skills">Skills</Link>
+          <Link href="/#about">About</Link>
+          <Link href="/resume">Resume</Link>
+          <Link href="/contact">Contact</Link>
           <ThemeToggle />
         </div>
       </div>

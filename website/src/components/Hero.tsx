@@ -1,5 +1,6 @@
 import styles from './Hero.module.css';
 import Image from 'next/image';
+import Link from 'next/link';
 
 export default function Hero() {
   return (
@@ -56,14 +57,14 @@ export default function Hero() {
             I specialize in full-stack development with a focus on modern web technologies.
           </p>
           <div className={styles.actions}>
-            <a href="/resume" className={styles.primaryBtn}>
+            <Link href="/resume" className={styles.primaryBtn}>
               <span className={styles.btnIcon}>⚔</span>
               View Resume
-            </a>
-            <a href="/contact" className={styles.secondaryBtn}>
+            </Link>
+            <Link href="/contact" className={styles.secondaryBtn}>
               <span className={styles.btnIcon}>✉</span>
               Contact Me
-            </a>
+            </Link>
           </div>
         </div>
         <div className={`${styles.imageWrapper} animate-fade-in`}>
