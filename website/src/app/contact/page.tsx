@@ -11,6 +11,7 @@ export default function ContactPage() {
   
   // =========================================================================
   // EMAILJS CONFIGURATION
+jdn
   // 1. Log in to https://www.emailjs.com/
   // 2. Create an account and add an Email Service (e.g., Gmail)
   // 3. Create an Email Template with variables: {{name}}, {{email}}, {{subject}}, {{message}}
