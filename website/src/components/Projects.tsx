@@ -26,6 +26,15 @@ const projects = [
     tags: ["React Native", "KaboomJS", "Vite"],
     github: "https://github.com/aaryanboy/jsgame",
     live: "https://jsgame-rpg.vercel.app/" 
+  },
+  {
+    title: "FrontEnd Pratice",
+    description: "First making figma design and copying it to nextjs project ",
+    image: "/images/frontend.png",
+    tags: ["NextJs", "Figma", "Typescript"],
+    github: "https://github.com/aaryanboy/Mini-Job",
+    live: "https://mini-job-frontend.vercel.app/", 
+    figma: "https://www.figma.com/design/4wd6hBQDvceTUOiU4Qu5Ul/minijobs?node-id=2008-3&t=voGUIYUrOe978CEm-1" 
   }
 ];
 
@@ -57,6 +66,12 @@ export default function Projects() {
                       <a href={project.live} target="_blank" rel="noopener noreferrer" className={styles.liveBtn}>
                         <ExternalLink size={18} />
                         Website
+                      </a>
+                    )}
+                     {project.figma && (
+                      <a href={project.figma} target="_blank" rel="noopener noreferrer" className={styles.liveBtn}>
+                        <ExternalLink size={18} />
+                        figma
                       </a>
                     )}
                   </div>
