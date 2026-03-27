@@ -1,6 +1,9 @@
+"use client";
+
 import styles from './Projects.module.css';
 import Image from 'next/image';
-import { Github, ExternalLink } from 'lucide-react';
+import { useState } from 'react';
+import { Github, ExternalLink, Copy, Check } from 'lucide-react';
 
 const projects = [
   {
@@ -12,12 +15,12 @@ const projects = [
     live: "https://na-pukhu-mini-market.vercel.app/"
   },
   {
-    title: "PunyaJewellery",
-    description: "Punya Jewelry Shop - Website Welcome to the Punya Jewelry Shop project! This website was built using React, Next.js, and Tailwind CSS to provide a sleek, responsive, and user-friendly interface for customers to explore beautiful jewelry pieces. The website allows users to view products, contact the store, and learn more about the jewelry collection.",
-    image: "/images/jewelry.png",
-    tags: ["React", "Next.js", "Tailwind CSS"],
-    github: "https://github.com/aaryanboy/PunyaJewellery",
-    live: ""
+    title: "Shopify Store",
+    description: "Hoodie store using shopify made as my e-commerce project.. with shopify partner plan.. ",
+    image: "/images/shopify.png",
+    tags: ["Shopify", "Pinterest"],
+    live: "https://aryan-bmc.myshopify.com/", 
+    password: "GOD"
   },
   {
     title: "TopDown RPG",
@@ -35,10 +38,28 @@ const projects = [
     github: "https://github.com/aaryanboy/Mini-Job",
     live: "https://mini-job-frontend.vercel.app/", 
     figma: "https://www.figma.com/design/4wd6hBQDvceTUOiU4Qu5Ul/minijobs?node-id=2008-3&t=voGUIYUrOe978CEm-1" 
+  },
+  {
+    title: "PunyaJewellery",
+    description: "Punya Jewelry Shop - Website Welcome to the Punya Jewelry Shop project! This website was built using React, Next.js, and Tailwind CSS to provide a sleek, responsive, and user-friendly interface for customers to explore beautiful jewelry pieces. The website allows users to view products, contact the store, and learn more about the jewelry collection.",
+    image: "/images/jewelry.png",
+    tags: ["React", "Next.js", "Tailwind CSS"],
+    github: "https://github.com/aaryanboy/PunyaJewellery",
+    live: ""
   }
+  
 ];
 
+
 export default function Projects() {
+  const [copiedId, setCopiedId] = useState<string | null>(null);
+
+  const handleCopy = (text: string, id: string) => {
+    navigator.clipboard.writeText(text);
+    setCopiedId(id);
+    setTimeout(() => setCopiedId(null), 2000);
+  };
+
   return (
     <section id="projects" className={styles.projects}>
       <div className="container">
@@ -73,6 +94,16 @@ export default function Projects() {
                         <ExternalLink size={18} />
                         figma
                       </a>
+                    )}
+                    {project.password && (
+                      <button 
+                        onClick={() => handleCopy(project.password!, project.title)}
+                        className={styles.liveBtn}
+                        style={{ cursor: 'pointer' }}
+                      >
+                        {copiedId === project.title ? <Check size={18} /> : <Copy size={18} />}
+                        {copiedId === project.title ? 'Copied' : 'password'}
+                      </button>
                     )}
                   </div>
                 </div>
