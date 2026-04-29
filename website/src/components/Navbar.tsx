@@ -25,7 +25,7 @@ export default function Navbar() {
         <div className={styles.links}>
           <Link href="/#projects">Projects</Link>
           <Link href="/#skills">Skills</Link>
-          <Link href="/#about">About</Link>
+          <Link href="/about">About</Link>
           <Link href="/resume">Resume</Link>
           <Link href="/contact">Contact</Link>
           <ThemeToggle />
