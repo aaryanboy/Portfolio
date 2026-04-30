@@ -11,11 +11,11 @@ export default function Home() {
     <main>
       <Navbar />
       <Hero />
-      <ScrollingBanner />
+      <ScrollingBanner text="GOD ✦ GOD ✦ GOD ✦ GOD ✦ GOD ✦ GOD ✦ GOD ✦ GOD ✦ " />
       <Projects />
-      <ScrollingBanner reversed />
+      <ScrollingBanner reversed text="NEXT.JS ✦ REACT ✦ TYPESCRIPT ✦ MONGODB ✦ NODE.JS ✦ TAILWIND CSS ✦ EXPRESS ✦ FULL STACK ✦ " />
       <Skills />
-      <ScrollingBanner />
+      <ScrollingBanner text="CLEAN CODE ✦ RESPONSIVE DESIGN ✦ REST APIs ✦ GIT ✦ AGILE ✦ PERFORMANCE ✦ ACCESSIBILITY ✦ " />
       <BlogList limit={1} title="Latest Post" />
       <Footer />
     </main>
