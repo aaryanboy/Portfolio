@@ -478,9 +478,17 @@
 }
 
 @media (max-width: 600px) {
+    .hero {
+        min-height: auto;
+        padding-top: 130px; /* Account for navbar + normal top margin */
+        padding-bottom: 80px;
+        align-items: flex-start;
+    }
+
     .container {
         display: grid;
         grid-template-areas:
+            /* image takes 100px, resting takes the remaining */
             "image h2"
             "image h1"
             "desc desc"
@@ -489,7 +497,7 @@
         gap: 0.25rem 0.75rem;
         text-align: left;
         align-items: center;
-        padding-top: 1rem;
+        padding-top: 0;
     }
 
     .content {

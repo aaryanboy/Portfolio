@@ -1,0 +1,108 @@
+.bannerContainer {
+    width: 100%;
+    background: #E8B828;
+    /* Hardcoded dark mode yellow constant */
+    color: #111111;
+    /* Hardcoded dark text constant */
+    padding: 0.5rem 0;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    white-space: nowrap;
+    transform: rotate(-2deg) scale(1.05);
+    /* Rotates slightly */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    z-index: 10;
+    margin-top: -2rem;
+    /* Overlap slightly with hero */
+    margin-bottom: 2rem;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+}
+
+.reversed {
+    transform: rotate(2deg) scale(1.05);
+}
+
+.topFixed {
+    position: absolute;
+    top: -12%;
+    left: -20vw;
+    width: 140%;
+    margin: 0;
+    transform: rotate(-30deg);
+    z-index: 2;
+    opacity: 0.85;
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.6);
+}
+
+.topFixedMirror {
+    position: absolute;
+    top: -12%;
+    right: -20vw;
+    left: auto;
+    width: 140%;
+    margin: 0;
+    transform: rotate(30deg);
+    z-index: 2;
+    opacity: 0.85;
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.6);
+}
+
+.bannerContent {
+    display: flex;
+    width: max-content;
+    animation: scroll 60s linear infinite;
+    /* Doubled duration for slower scroll */
+}
+
+.scrollText {
+    white-space: pre;
+    font-family: 'Cinzel', serif;
+    font-weight: 800;
+    letter-spacing: 0.15rem;
+    font-size: 0.85rem;
+}
+
+@keyframes scroll {
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(-50%);
+    }
+}
+
+@media (max-width: 768px) {
+    .bannerContainer {
+        padding: 0.35rem 0;
+        transform: rotate(-3deg) scale(1.1);
+        margin-top: -1rem;
+        margin-bottom: 2rem;
+    }
+
+    .topFixed {
+        top: -12%;
+        left: -20vw;
+        width: 140%;
+        transform: rotate(-30deg);
+        margin: 0;
+        padding: 0.25rem 0;
+    }
+
+    .topFixedMirror {
+        top: -12%;
+        right: -20vw;
+        left: auto;
+        width: 140%;
+        transform: rotate(30deg);
+        margin: 0;
+        padding: 0.25rem 0;
+    }
+
+    .scrollText {
+        font-size: 0.6rem;
+        letter-spacing: 0.1rem;
+    }
+}

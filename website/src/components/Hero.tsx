@@ -1,10 +1,13 @@
 import styles from './Hero.module.css';
 import Image from 'next/image';
 import Link from 'next/link';
+import ScrollingBanner from './ScrollingBanner';
 
 export default function Hero() {
   return (
     <section id="home" className={styles.hero}>
+      {/* Background Scrolling Aesthetic Line */}
+      <ScrollingBanner mirror={true} />
       {/* Animated fire/ember particles */}
       <div className={styles.particles}>
         <div className={styles.particle}></div>
