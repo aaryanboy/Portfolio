@@ -9,7 +9,8 @@ export default function QACertificatePost() {
     <main className={styles.mainWrapper}>
       <Navbar />
       <div className={styles.newspaperBackground}>
-        <article className={styles.newspaperContainer}>
+        <div className={styles.pageLayout}>
+          <article className={styles.newspaperContainer}>
           <div className={styles.topBar}>
             <Link href="/about" className={styles.backLink}>
               <ArrowLeft size={14} />
@@ -46,7 +47,6 @@ export default function QACertificatePost() {
             </figure>
           </div>
 
-          <div className={styles.contentLayout}>
             <div className={styles.mainColumn}>
               <p className={styles.firstParagraph}>
                 <span className={styles.dropCap}>W</span>e attended a two-day Quality Assurance
@@ -113,7 +113,13 @@ export default function QACertificatePost() {
                 caliber of my work one test case at a time.
               </p>
             </div>
+          
+            <div className={styles.bottomFooterInfo}>
+               <span>SKILL SHIKSHYA — QA WORKSHOP 2026</span>
+            </div>
+          </article>
 
+          <aside className={styles.sidePaperContainer}>
             <div className={styles.sideColumn}>
               {/* Feature Image moved to sidebar - Only visible on large screens */}
               <div className={`${styles.sideImageWrapper} ${styles.desktopOnly}`}>
@@ -142,14 +148,8 @@ export default function QACertificatePost() {
                 </p>
               </div>
             </div>
-          </div>
-          
-          <div className={styles.bottomFooterInfo}>
-             <span>SKILL SHIKSHYA — QA WORKSHOP 2026</span>
-     
-          </div>
-
-        </article>
+          </aside>
+        </div>
       </div>
       <Footer />
     </main>

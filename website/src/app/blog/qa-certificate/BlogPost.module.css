@@ -10,51 +10,80 @@
 
 .mainWrapper {
     background: var(--background);
-    --news-bg: #f7f5ef;
-    --news-container: #fdfcf8;
-    --news-ink: #1a1814;
-    --news-ink-muted: #6b6458;
-    --news-border-light: #ddd8c8;
-    --news-border-strong: #1a1814;
-    --news-shadow: rgba(0,0,0,0.07);
-    --news-shadow-inset: rgba(0,0,0,0.025);
-    --news-image-bg: #f0ede4;
-    --news-image-filter: sepia(0.15) grayscale(0.08) contrast(1.05);
-    --news-accent: #1a1814;
+    --news-bg: #ebeae6;
+    --news-container: #e3e2dc;
+    --news-ink: #2b2a29;
+    --news-ink-muted: #6e6b68;
+    --news-border-light: #d1cfca;
+    --news-border-strong: #2b2a29;
+    --news-shadow: rgba(0,0,0,0.09);
+    --news-shadow-inset: rgba(0,0,0,0.035);
+    --news-image-bg: #dcdad4;
+    --news-image-filter: sepia(0.15) grayscale(0.2) contrast(0.95);
+    --news-accent: #2b2a29;
     --news-rule: 1px;
 }
 
 :global([data-theme='dark']) .mainWrapper {
-    --news-bg: #141210;
-    --news-container: #1b1917;
-    --news-ink: #f0eadd;
-    --news-ink-muted: #a69f90;
-    --news-border-light: #3d362f;
-    --news-border-strong: #e4d7bd;
-    --news-shadow: rgba(0,0,0,0.6);
-    --news-shadow-inset: rgba(0,0,0,0.2);
-    --news-image-bg: #1f1c19;
-    --news-image-filter: sepia(0.1) grayscale(0.25) contrast(1.1) brightness(0.9);
-    --news-accent: #d4b55b;
-    --news-rule: 1px;
+    --news-bg: var(--background, #141210);
 }
-
 .newspaperBackground {
     background-color: var(--news-bg);
-    padding: 80px 20px 80px;
+    padding: 120px 20px 80px;
     color: var(--news-ink);
-    font-family: 'Source Serif 4', serif;
+    font-family: 'Source Serif 4', 'Georgia', serif;
     min-height: 100vh;
     transition: background-color 0.4s ease, color 0.4s ease;
 }
 
-.newspaperContainer {
-    max-width: 900px;
+.pageLayout {
+    max-width: 1150px;
     margin: 0 auto;
-    background: var(--news-container);
+    display: grid;
+    grid-template-columns: 1.8fr 1fr;
+    gap: 3rem;
+    align-items: start;
+}
+
+.newspaperContainer {
+    background-color: var(--news-container);
+    background-image: 
+        radial-gradient(ellipse at center, rgba(0,0,0,0) 60%, rgba(0,0,0,0.04) 100%),
+        url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.08'/%3E%3C/svg%3E");
     padding: 3rem 3rem 1rem 3rem;
     box-shadow: 0 20px 50px var(--news-shadow);
-    transition: background 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+    transition: background-color 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+}
+
+.sidePaperContainer {
+    background-color: var(--news-container);
+    background-image: 
+        radial-gradient(ellipse at center, rgba(0,0,0,0) 60%, rgba(0,0,0,0.04) 100%),
+        url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.08'/%3E%3C/svg%3E");
+    padding: 2.5rem;
+    box-shadow: 0 20px 50px var(--news-shadow);
+    transition: background-color 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+    position: sticky;
+    top: 40px;
+    max-height: calc(100vh - 60px);
+    overflow-y: auto;
+}
+
+.sidePaperContainer::-webkit-scrollbar {
+    width: 6px;
+}
+
+.sidePaperContainer::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.sidePaperContainer::-webkit-scrollbar-thumb {
+    background: var(--news-border-light);
+    border-radius: 10px;
+}
+
+.sidePaperContainer::-webkit-scrollbar-thumb:hover {
+    background: var(--news-ink-muted);
 }
 
 .topBar {
@@ -159,13 +188,6 @@
     border: 1px solid var(--news-border-light);
     border-radius: 4px;
     padding: 4px 10px;
-}
-
-.contentLayout {
-    display: grid;
-    grid-template-columns: 1.8fr 1fr;
-    gap: 3rem;
-    align-items: start;
 }
 
 .mainColumn {
@@ -364,14 +386,14 @@
     }
 
     .newspaperBackground {
-        padding: 40px 10px 40px;
+        padding: 80px 10px 40px;
     }
 
     .newspaperContainer {
         padding: 2rem 1.5rem;
     }
 
-    .contentLayout {
+    .pageLayout {
         grid-template-columns: 1fr;
         gap: 2.5rem;
     }
