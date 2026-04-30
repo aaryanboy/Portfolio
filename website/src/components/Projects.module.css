@@ -259,8 +259,78 @@
     }
 
     .grid {
-        grid-template-columns: 1fr;
-        max-width: 500px;
+        grid-template-columns: repeat(2, 1fr);
+        max-width: 100%;
         margin: 0 auto;
+        gap: 1.5rem;
+    }
+}
+
+@media (max-width: 600px) {
+    .sectionTitle {
+        font-size: 1.4rem;
+        margin-bottom: 2rem;
+    }
+
+    .grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.5rem;
+    }
+
+    .card {
+        border-width: 1px;
+    }
+
+    .content {
+        padding: 0.5rem;
+    }
+    
+    .content::before {
+        display: none; /* Hide decorative line on very small cards */
+    }
+
+    .tags {
+        gap: 0.2rem;
+        margin-bottom: 0.4rem;
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row;
+    }
+    
+    .tags span {
+        font-size: 0.45rem;
+        padding: 0.1rem 0.2rem;
+        letter-spacing: 0;
+        white-space: nowrap;
+    }
+    
+    .content h3 {
+        font-size: 0.7rem;
+        margin-bottom: 0.2rem;
+        letter-spacing: 0;
+        line-height: 1.2;
+    }
+    
+    .content p {
+        font-size: 0.65rem;
+        line-height: 1.3;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+    
+    .viewBtn,
+    .liveBtn {
+        padding: 0.3rem 0.4rem;
+        font-size: 0.55rem;
+    }
+
+    .btnGroup {
+        gap: 0.25rem;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
     }
 }
