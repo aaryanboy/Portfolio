@@ -75,8 +75,8 @@ export async function POST(request: Request) {
     }
 
     let certificateImagePath = '';
-    const certFile = formData.get('certificateImage') as File;
-    if (certFile && certFile.name && certFile.size > 0) {
+    const certFile = formData.get('certificateImage');
+    if (certFile && typeof certFile !== 'string' && certFile.name && certFile.size > 0) {
       const extension = certFile.name.split('.').pop();
       const filename = `certificate.${extension}`;
       const filePath = path.join(imagesDir, filename);
@@ -86,11 +86,11 @@ export async function POST(request: Request) {
     }
 
     const additionalMediaPaths: string[] = [];
-    const mediaFiles = formData.getAll('additionalMedia') as File[];
+    const mediaFiles = formData.getAll('additionalMedia');
     
     for (let i = 0; i < mediaFiles.length; i++) {
       const file = mediaFiles[i];
-      if (file && file.name && file.size > 0) {
+      if (file && typeof file !== 'string' && file.name && file.size > 0) {
         const extension = file.name.split('.').pop() || 'jpg';
         const filename = `media_${Date.now()}_${i}.${extension}`;
         const filePath = path.join(imagesDir, filename);
@@ -138,8 +138,8 @@ export async function POST(request: Request) {
     
     fs.writeFileSync(jsonPath, JSON.stringify(blogs, null, 2));
     return NextResponse.json({ success: true, id: slug });
-  } catch (error) {
+  } catch (error: any) {
     console.error("Error creating blog post", error);
-    return NextResponse.json({ success: false, error: "Server error" }, { status: 500 });
+    return NextResponse.json({ success: false, error: error?.message || "Server error" }, { status: 500 });
   }
 }
