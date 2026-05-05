@@ -67,7 +67,7 @@ export default async function DynamicBlogPost({ params }: { params: Promise<{ id
                     <span className={styles.dropCap}>{blog.paragraphs[0].charAt(0)}</span>
                     {blog.paragraphs[0].slice(1)}
                   </p>
-                  {blog.paragraphs.slice(1).map((p, idx) => (
+                  {blog.paragraphs.slice(1).map((p: string, idx: number) => (
                     <p key={idx}>{p}</p>
                   ))}
                 </>
@@ -85,7 +85,7 @@ export default async function DynamicBlogPost({ params }: { params: Promise<{ id
                 <h3 className={styles.sectionTitle}>{blog.sectionTitle}</h3>
               )}
               
-              {blog.sectionParagraphs && blog.sectionParagraphs.map((p, idx) => (
+              {blog.sectionParagraphs && blog.sectionParagraphs.map((p: string, idx: number) => (
                 <p key={`sp-${idx}`}>{p}</p>
               ))}
 
@@ -145,7 +145,7 @@ export default async function DynamicBlogPost({ params }: { params: Promise<{ id
                 <div className={styles.sideBox}>
                   <h5>KEY TAKEAWAYS</h5>
                   <ul>
-                    {blog.takeaways.map((takeaway, idx) => (
+                    {blog.takeaways.map((takeaway: string, idx: number) => (
                       <li key={idx}>{takeaway}</li>
                     ))}
                   </ul>
