@@ -28,7 +28,7 @@
     --news-bg: var(--background, #141210);
 }
 .newspaperBackground {
-    background-color: var(--news-bg);
+    background-color: var(--background);
     padding: 120px 20px 80px;
     color: var(--news-ink);
     font-family: 'Source Serif 4', 'Georgia', serif;

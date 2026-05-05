@@ -11,13 +11,11 @@
     white-space: nowrap;
     transform: rotate(-2deg) scale(1.05);
     /* Rotates slightly */
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
     z-index: 10;
     margin-top: -2rem;
     /* Overlap slightly with hero */
     margin-bottom: 2rem;
-    border-top: 1px solid var(--border);
-    border-bottom: 1px solid var(--border);
+
 }
 
 .reversed {
@@ -33,7 +31,6 @@
     transform: rotate(-30deg);
     z-index: 2;
     opacity: 0.85;
-    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.6);
 }
 
 .topFixedMirror {
@@ -45,8 +42,6 @@
     margin: 0;
     transform: rotate(30deg);
     z-index: 2;
-    opacity: 0.85;
-    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.6);
 }
 
 .bannerContent {

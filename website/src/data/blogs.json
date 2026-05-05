@@ -1,0 +1,74 @@
+[
+  {
+    "id": "first-blog-post",
+    "title": "My Journey in Web Development",
+    "date": "March 2026",
+    "category": "Experience",
+    "excerpt": "Reflecting on how I started with web development and where I am now.",
+    "kicker": "PERSONAL LOG",
+    "subHeadline": "The Beginning of an Error",
+    "author": "Aryan Bajracharya",
+    "paragraphs": [
+      "Web development started as a hobby and turned into a passion. From creating simple visual layouts to building full-stack platforms with robust architectures using Next.js and MongoDB. It has been a wild ride of continuous learning, and exploring new libraries, tools, and best practices.\r",
+      "Sharing what I know has always been a goal of mine, and this blog is the start of documenting my daily progress."
+    ]
+  },
+  {
+    "id": "qa-certificate",
+    "title": "2 Day QA Certificate Experience",
+    "date": "April 2026",
+    "category": "Certificate",
+    "excerpt": "I recently completed a 2-day QA certification. Here is my experience and what I learned...",
+    "image": "/images/qa-workshop/certificate.jpg",
+    "kicker": "SKILL SHIKSHYA",
+    "subHeadline": "CERTIFICATE & EXPERIENCE",
+    "author": "Aryan Bajracharya",
+    "certificateImage": "/images/qa-workshop/certificate.jpg",
+    "certificateCaption": "Official certificate of completion, issued by Skill Shikshya",
+    "paragraphs": [
+      "We attended a two-day Quality Assurance workshop, and on the first day, I was a bit nervous. I went with my friend, and we didn't even bring our laptops because we thought it wouldn't be necessary. When we arrived, everyone was already seated, and we were the last two to arrive.",
+      "The room was completely full, and it was silent as we walked in. We didn't even have bags, so it felt really awkward. We sat at the back corner, and since everyone else had laptops, we felt out of place. We also talked to a friend who had an internship there, and he borrowed his laptop. That turned out to be a lifesaver. On that first day, we learned the fundamentals of Quality Assurance — what it is, how it's done, which platforms need it, which companies use it, and the career prospects in QA. We wrapped up the day on a high note, asking questions and getting answers.",
+      "The next day, we brought our laptops, and we were among the first to arrive. Since no one was there yet, we took the initiative to set up the chairs as on the previous day. We made close connections on the first day, so we made many friends. We exchanged Instagram handles, and planned to keep in touch. On the second day, we had already downloaded Postman the night before. The instructor taught us how to use it, why it's so useful, and gave us a hands-on crash course."
+    ],
+    "blockquote": "\"Understanding QA in theory is one thing — seeing it applied to real-world projects is another entirely.\"",
+    "sectionTitle": "The Power of Postman",
+    "sectionParagraphs": [
+      "The second day shifted from theory to practical application. The spotlight was on API testing — an indispensable tool for QA engineers. We tested routes with exceptions, applications, common error scenarios, all of it. We used Postman as our primary tool, allowing testers to simulate requests, examine responses, and ensure that data flows smoothly and accurately.",
+      "Understanding QA in theory is one thing, but communicating it within real-world projects is another. The workshop emphasized how critical QA is in strong competitive development. Even a single minor defect in production can lead to cascading failures, proving that quality assurance is not an obstacle, but the bedrock of sustainable software engineering.",
+      "The immersive aspect of learning on-site proved to be uniquely engaging. Collaborative exercises and direct feedback kept us focused and comprehension significantly above standard online courses. I sincerely and profoundly thank Sumana Ghimire and the entire Skill Shikshya team for their unwavering support and guidance throughout the event. Armed with these new frameworks and skills, I look forward to rigorously applying these principles in my upcoming projects, elevating the caliber of my work one test case at a time."
+    ],
+    "images": [
+      {
+        "src": "/images/qa-workshop/all.jpg",
+        "caption": "The workshop atmosphere"
+      },
+      {
+        "src": "/images/qa-workshop/me.jpg",
+        "caption": "Hands-on Postman learning session"
+      }
+    ],
+    "takeaways": [
+      "1. Fundamentals of Quality Assurance",
+      "2. Developing a proper QA testing mindset",
+      "3. Practical usage of Postman for API testing",
+      "4. Understanding how QA is used in production projects"
+    ],
+    "eventInfo": "Organized by **Skill Shikshya**, this two-day immersive workshop offered students hands-on experience in software QA and API testing with Postman.",
+    "footerInfo": "SKILL SHIKSHYA — QA WORKSHOP 2026"
+  },
+  {
+    "id": "participated-in-art-competetion",
+    "title": "Participated in Art Competetion",
+    "date": "October,2022",
+    "category": "Experiance",
+    "excerpt": "fUN TIME ",
+    "kicker": "USAid",
+    "subHeadline": "EXPERIANCE",
+    "author": "Aryan Bajracharya",
+    "paragraphs": [
+      "it was fun ecent"
+    ],
+    "image": "/images/participated-in-art-competetion/certificate.jpg",
+    "certificateImage": "/images/participated-in-art-competetion/certificate.jpg"
+  }
+]

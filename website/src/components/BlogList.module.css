@@ -1,7 +1,13 @@
 .blogSection {
     padding: 80px 0;
     position: relative;
-    background: var(--background);
+    background-color: var(--background);
+    transition: background-color 0.4s ease;
+}
+
+/* Add a shadowy overlay to the wall */
+.wallOverlay {
+    display: none;
 }
 
 .sectionTitle {
@@ -13,6 +19,7 @@
     letter-spacing: 0.15em;
     text-transform: uppercase;
     position: relative;
+    color: var(--foreground);
 }
 
 .sectionTitle::after {
@@ -33,143 +40,290 @@
 }
 
 .grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 2.5rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+    /* Prevent stretching vertically */
+    gap: 3rem;
     position: relative;
-    z-index: 1;
+    z-index: 2;
 }
 
+/* Parchment/Poster Paper Base Style */
 .card {
-    background: var(--card-bg);
-    border: 1px solid var(--border);
-    transition: all 0.5s ease;
+    width: 100%;
+    max-width: 350px;
     position: relative;
-    clip-path: polygon(0 15px,
-            15px 0,
-            calc(100% - 15px) 0,
-            100% 15px,
-            100% calc(100% - 15px),
-            calc(100% - 15px) 100%,
-            15px 100%,
-            0 calc(100% - 15px));
     display: flex;
     flex-direction: column;
+    /* Clean subtle drop shadow against the wall */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    /* Push top padding to leave room for the pin */
+    padding-top: 2rem;
+    height: max-content;
+    /* Dynamic height based on content */
 }
 
-.card::before {
-    content: '';
-    position: absolute;
-    inset: -1px;
-    background: linear-gradient(135deg, var(--accent) 0%, transparent 50%, var(--accent) 100%);
-    opacity: 0;
-    z-index: -1;
-    transition: opacity 0.5s ease;
-}
-
-.card::after {
-    content: '';
-    position: absolute;
-    inset: 1px;
-    background: var(--card-bg);
-    z-index: -1;
-    clip-path: inherit;
-}
-
+/* Base Hover */
 .card:hover {
-    transform: translateY(-8px);
-    border-color: var(--accent-dim);
-    box-shadow:
-        0 20px 50px rgba(0, 0, 0, 0.5),
-        0 0 40px rgba(201, 162, 39, 0.1);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+    transform: translateY(-4px);
 }
 
-.card:hover::before {
-    opacity: 0.2;
+/* DESIGN 1: Standard jagged tear, light parchment */
+.design1 {
+    background: #f4eedd;
+    background-image:
+        radial-gradient(transparent, rgba(0, 0, 0, 0.05) 100%),
+        url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100' height='100' filter='url(%23noise)' opacity='0.08'/%3E%3C/svg%3E");
+    border: 1px solid #dcd3b6;
+    clip-path: polygon(0% 0%, 100% 2%, 100% 98%, 98% 100%, 5% 99%, 0% 95%, 2% 50%, 0% 20%);
+}
+
+/* DESIGN 2: Worn leather/heavy brown paper, double pin */
+.design2 {
+    background: #e6dac3;
+    background-image:
+        radial-gradient(transparent, rgba(80, 50, 20, 0.08) 100%),
+        url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.6' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100' height='100' filter='url(%23noise)' opacity='0.1'/%3E%3C/svg%3E");
+    border: 1px solid #c9bca0;
+    /* Burned/torn corner effect */
+    clip-path: polygon(3% 0%, 97% 1%, 100% 4%, 99% 96%, 96% 100%, 4% 99%, 0% 96%, 1% 4%);
+    color: #1a1611;
+}
+
+.design2 .posterHeader h3 {
+    font-family: 'Georgia', serif;
+    font-style: italic;
+    color: #3b1f1f;
+    border-bottom: 2px solid #3b1f1f;
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+}
+
+.design2 .tags {
+    border-bottom: none;
+    border-top: 1px solid #c9bca0;
+    padding-top: 0.75rem;
+    margin-top: 1rem;
+}
+
+
+
+/* The Pin at the top */
+.pin {
+    width: 14px;
+    height: 14px;
+    background: radial-gradient(circle at 30% 30%, #888, #333);
+    border-radius: 50%;
+    position: absolute;
+    top: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.5), inset 0 1px 2px rgba(255, 255, 255, 0.4);
+    z-index: 10;
+}
+
+.pin::after {
+    /* Pin shadow */
+    content: '';
+    position: absolute;
+    top: 10px;
+    left: 2px;
+    width: 6px;
+    height: 15px;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 50%;
+    transform: rotate(20deg);
+    z-index: -1;
+    filter: blur(1px);
+}
+
+.pinLeft {
+    left: 20%;
+}
+
+.pinRight {
+    left: 80%;
+}
+
+.posterImageWrapper {
+    width: calc(100% - 3rem);
+    margin: 1rem auto 0;
+    position: relative;
+    aspect-ratio: 4/3;
+    border: 1px solid #c2b59b;
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 4px;
+    background: #e8dfc7;
+    /* slight inner frame */
+}
+
+.posterImage {
+    object-fit: cover;
+    mix-blend-mode: multiply;
+    /* Makes image blend with parchment */
+    filter: sepia(0.3) contrast(1.1);
+    /* Slightly aged photo look */
 }
 
 .content {
-    padding: 2.5rem;
+    padding: 1.5rem 1.5rem 2rem;
     position: relative;
     flex-grow: 1;
     display: flex;
     flex-direction: column;
+    /* Ink colors for paper */
+    color: #2c251d;
+    height: 100%;
+}
+
+.posterHeader {
+    padding: 0 1.5rem;
+    text-align: left;
+}
+
+.posterHeader h3 {
+    font-size: 1.4rem;
+    margin-bottom: 0.5rem;
+    font-family: 'Cinzel', serif;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    color: #1a1611;
+    line-height: 1.3;
+    text-transform: uppercase;
 }
 
 .tags {
     display: flex;
     justify-content: space-between;
+    gap: 1.5rem;
     align-items: center;
-    margin-bottom: 1.5rem;
+    margin-bottom: 0.5rem;
+    border-bottom: 1px dashed #c0b396;
+    padding-bottom: 0.75rem;
 }
 
 .category {
     font-size: 0.75rem;
-    font-weight: 600;
-    color: var(--accent);
+    font-weight: 700;
+    color: #8b2323;
+    /* Dark red ink */
     text-transform: uppercase;
     letter-spacing: 0.1em;
     font-family: 'Cinzel', serif;
-    padding: 0.35rem 0.75rem;
-    border: 1px solid var(--accent-dim);
-    background: rgba(201, 162, 39, 0.05);
 }
 
 .date {
     font-size: 0.85rem;
-    color: var(--foreground-dim);
-}
-
-.content h3 {
-    font-size: 1.5rem;
-    margin-bottom: 1rem;
-    font-family: 'Cinzel', serif;
-    font-weight: 600;
-    letter-spacing: 0.05em;
-    color: var(--foreground);
-    line-height: 1.4;
+    color: #5a4f40;
+    /* Faded ink */
+    font-style: italic;
+    font-family: serif;
 }
 
 .content p {
-    color: var(--foreground-dim);
+    color: #3b3127;
     font-size: 1.05rem;
-    line-height: 1.7;
+    line-height: 1.6;
     margin-bottom: 2rem;
-    flex-grow: 1;
+    font-family: 'Georgia', serif;
 }
 
 .readMore {
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
-    color: var(--accent);
+    color: #8b2323;
+    /* Red ink link */
     font-family: 'Cinzel', serif;
-    font-weight: 600;
+    font-weight: 700;
     letter-spacing: 0.1em;
     text-transform: uppercase;
     font-size: 0.85rem;
     text-decoration: none;
     transition: all 0.3s ease;
-    align-self: flex-start;
+    align-self: flex-end;
+    border-bottom: 1px solid transparent;
 }
 
 .readMore:hover {
-    color: var(--foreground);
-    text-shadow: 0 0 10px rgba(201, 162, 39, 0.5);
+    color: #1a1611;
     transform: translateX(5px);
+    border-bottom-color: #1a1611;
 }
 
 @media (max-width: 768px) {
     .blogSection {
-        padding: 60px 0;
+        padding: 40px 0;
     }
-    
+
     .sectionTitle {
-        font-size: 2rem;
-        margin-bottom: 3rem;
+        font-size: 1.6rem;
+        margin-bottom: 2rem;
     }
-    
+
+    .grid {
+        gap: 0.75rem;
+    }
+
+    .card {
+        padding-top: 1rem;
+        flex: 0 1 calc(50% - 0.375rem);
+        max-width: calc(50% - 0.375rem);
+    }
+
+    .posterHeader {
+        padding: 0 0.5rem;
+    }
+
+    .posterHeader h3 {
+        font-size: 0.65rem;
+        margin-bottom: 0.15rem;
+        letter-spacing: 0;
+    }
+
     .content {
-        padding: 1.75rem;
+        padding: 0.4rem 0.5rem 0.5rem;
+    }
+
+    .content p {
+        font-size: 0.55rem;
+        margin-bottom: 0.5rem;
+        line-height: 1.3;
+    }
+
+    .tags {
+        gap: 0.25rem;
+        padding-bottom: 0.35rem;
+        margin-bottom: 0.25rem;
+    }
+
+    .category {
+        font-size: 0.5rem;
+        letter-spacing: 0;
+    }
+
+    .date {
+        font-size: 0.5rem;
+    }
+
+    .readMore {
+        font-size: 0.5rem;
+        letter-spacing: 0;
+        gap: 0.25rem;
+    }
+
+    .posterImageWrapper {
+        width: calc(100% - 1rem);
+        padding: 2px;
+    }
+
+    .pin {
+        width: 10px;
+        height: 10px;
+        top: 8px;
     }
 }

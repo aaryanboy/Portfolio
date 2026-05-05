@@ -8,7 +8,9 @@
     align-items: center;
     z-index: 1000;
     transition: all 0.4s ease;
-    background: transparent;
+    background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
 }
 
 .scrolled {
