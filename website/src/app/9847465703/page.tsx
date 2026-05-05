@@ -21,6 +21,10 @@ export default function AdminNewPost() {
   const [excerpt, setExcerpt] = useState('');
   const [content, setContent] = useState('');
 
+  // Existing media for preview
+  const [existingCertImage, setExistingCertImage] = useState('');
+  const [existingMedia, setExistingMedia] = useState<string[]>([]);
+
   // Fetch blogs on mount
   useEffect(() => {
     fetch('/api/blog')
@@ -29,24 +33,60 @@ export default function AdminNewPost() {
       .catch(err => console.error("Failed to fetch blogs", err));
   }, []);
 
+  const refreshBlogs = async () => {
+    const res = await fetch('/api/blog');
+    const data = await res.json();
+    setBlogs(data || []);
+  };
+
   const handleSelectPost = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const id = e.target.value;
     setSelectedId(id);
     if (!id) {
-        setTitle(''); setCategory(''); setDate(''); setKicker('');
-        setSubHeadline(''); setExcerpt(''); setContent('');
-        return;
+      setTitle(''); setCategory(''); setDate(''); setKicker('');
+      setSubHeadline(''); setExcerpt(''); setContent('');
+      setExistingCertImage(''); setExistingMedia([]);
+      return;
     }
     const blog = blogs.find(b => b.id === id);
     if (blog) {
-        setTitle(blog.title || '');
-        setCategory(blog.category || '');
-        setDate(blog.date || '');
-        setAuthor(blog.author || 'Aryan Bajracharya');
-        setKicker(blog.kicker || '');
-        setSubHeadline(blog.subHeadline || '');
-        setExcerpt(blog.excerpt || '');
-        setContent(blog.paragraphs ? blog.paragraphs.join('\n\n') : '');
+      setTitle(blog.title || '');
+      setCategory(blog.category || '');
+      setDate(blog.date || '');
+      setAuthor(blog.author || 'Aryan Bajracharya');
+      setKicker(blog.kicker || '');
+      setSubHeadline(blog.subHeadline || '');
+      setExcerpt(blog.excerpt || '');
+      setContent(blog.paragraphs ? blog.paragraphs.join('\n\n') : '');
+      setExistingCertImage(blog.certificateImage || '');
+      setExistingMedia(blog.additionalMedia || []);
+    }
+  };
+
+  const handleDeleteMedia = async (mediaUrl: string, type: 'additionalMedia' | 'certificateImage') => {
+    if (!selectedId) return;
+    if (!confirm(`Remove this ${type === 'certificateImage' ? 'featured image' : 'media item'}?`)) return;
+    
+    try {
+      const res = await fetch('/api/blog', {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ blogId: selectedId, mediaUrl, type }),
+      });
+      const data = await res.json();
+      if (data.success) {
+        if (type === 'certificateImage') {
+          setExistingCertImage('');
+        } else {
+          setExistingMedia(prev => prev.filter(url => url !== mediaUrl));
+        }
+        setMessage('Media removed successfully!');
+        await refreshBlogs();
+      } else {
+        setMessage('Error removing media: ' + data.error);
+      }
+    } catch {
+      setMessage('Error removing media.');
     }
   };
 
@@ -57,8 +97,8 @@ export default function AdminNewPost() {
 
     const formData = new FormData(e.currentTarget);
     if (selectedId) {
-        formData.append('mode', 'edit');
-        formData.append('editId', selectedId);
+      formData.append('mode', 'edit');
+      formData.append('editId', selectedId);
     }
 
     try {
@@ -70,24 +110,23 @@ export default function AdminNewPost() {
       const data = await res.json();
       if (data.success) {
         setMessage(`Success! Post ${selectedId ? 'updated' : 'created'} at /blog/${data.id}`);
-        // Refresh blogs after update
-        const updatedRes = await fetch('/api/blog');
-        const updatedBlogs = await updatedRes.json();
-        setBlogs(updatedBlogs);
+        await refreshBlogs();
         if (!selectedId) {
-            (e.target as HTMLFormElement).reset();
-            setTitle(''); setCategory(''); setDate(''); setKicker('');
-            setSubHeadline(''); setExcerpt(''); setContent('');
+          (e.target as HTMLFormElement).reset();
+          setTitle(''); setCategory(''); setDate(''); setKicker('');
+          setSubHeadline(''); setExcerpt(''); setContent('');
         }
       } else {
         setMessage('Error creating post: ' + data.error);
       }
-    } catch (err) {
+    } catch {
       setMessage('An error occurred during submission.');
     } finally {
       setLoading(false);
     }
   };
+
+  const isVideo = (url: string) => /\.(mp4|webm|ogg)$/i.test(url);
 
   return (
     <main style={{ background: 'var(--background)', minHeight: '100vh' }}>
@@ -171,6 +210,57 @@ export default function AdminNewPost() {
             <input type="file" name="additionalMedia" multiple accept="image/*,video/mp4,video/webm" style={{ ...inputStyle, padding: '0.5rem' }} />
           </div>
 
+          {/* ===== EXISTING MEDIA PREVIEW ===== */}
+          {selectedId && (existingCertImage || existingMedia.length > 0) && (
+            <div style={{ border: '1px solid var(--border)', padding: '1.5rem', background: 'var(--background-secondary)' }}>
+              <h3 style={{ fontFamily: 'Cinzel, serif', color: 'var(--accent)', marginBottom: '1rem', fontSize: '1.1rem' }}>
+                Existing Media
+              </h3>
+
+              {existingCertImage && (
+                <div style={{ marginBottom: '1.5rem' }}>
+                  <label style={{ display: 'block', marginBottom: '0.5rem', color: 'var(--foreground-dim)', fontSize: '0.85rem' }}>Featured Image</label>
+                  <div style={{ position: 'relative', display: 'inline-block' }}>
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src={existingCertImage} alt="Featured" style={{ maxWidth: '200px', height: 'auto', border: '1px solid var(--border)' }} />
+                    <button
+                      type="button"
+                      onClick={() => handleDeleteMedia(existingCertImage, 'certificateImage')}
+                      style={deleteButtonStyle}
+                    >
+                      ✕
+                    </button>
+                  </div>
+                </div>
+              )}
+
+              {existingMedia.length > 0 && (
+                <div>
+                  <label style={{ display: 'block', marginBottom: '0.5rem', color: 'var(--foreground-dim)', fontSize: '0.85rem' }}>Gallery Media ({existingMedia.length} items)</label>
+                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.75rem' }}>
+                    {existingMedia.map((url, idx) => (
+                      <div key={idx} style={{ position: 'relative', display: 'inline-block' }}>
+                        {isVideo(url) ? (
+                          <video src={url} style={{ width: '150px', height: '100px', objectFit: 'cover', border: '1px solid var(--border)', background: '#000' }} />
+                        ) : (
+                          // eslint-disable-next-line @next/next/no-img-element
+                          <img src={url} alt={`Media ${idx + 1}`} style={{ width: '150px', height: '100px', objectFit: 'cover', border: '1px solid var(--border)' }} />
+                        )}
+                        <button
+                          type="button"
+                          onClick={() => handleDeleteMedia(url, 'additionalMedia')}
+                          style={deleteButtonStyle}
+                        >
+                          ✕
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+          )}
+
           <button 
             type="submit" 
             disabled={loading}
@@ -187,7 +277,7 @@ export default function AdminNewPost() {
               marginTop: '1rem'
             }}
           >
-            {loading ? 'Publishing...' : 'Publish Post'}
+            {loading ? 'Publishing...' : selectedId ? 'Update Post' : 'Publish Post'}
           </button>
         </form>
       </div>
@@ -197,7 +287,7 @@ export default function AdminNewPost() {
   );
 }
 
-const inputStyle = {
+const inputStyle: React.CSSProperties = {
   width: '100%',
   padding: '0.8rem',
   background: 'var(--card-bg)',
@@ -205,4 +295,23 @@ const inputStyle = {
   color: 'var(--foreground)',
   fontSize: '1rem',
   fontFamily: 'var(--font-geist-sans)'
+};
+
+const deleteButtonStyle: React.CSSProperties = {
+  position: 'absolute',
+  top: '-8px',
+  right: '-8px',
+  width: '24px',
+  height: '24px',
+  borderRadius: '50%',
+  background: '#c0392b',
+  color: '#fff',
+  border: 'none',
+  fontSize: '14px',
+  cursor: 'pointer',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  fontFamily: 'sans-serif',
+  lineHeight: 1,
 };
