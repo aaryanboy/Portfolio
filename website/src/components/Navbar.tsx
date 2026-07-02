@@ -40,6 +40,7 @@ export default function Navbar() {
         <div className={`${styles.links} ${isMenuOpen ? styles.linksOpen : ''}`}>
           <Link href="/#projects" onClick={closeMenu}>Projects</Link>
           <Link href="/#skills" onClick={closeMenu}>Skills</Link>
+          <Link href="/#blog" onClick={closeMenu}>Blog</Link>
           <Link href="/resume" onClick={closeMenu}>Resume</Link>
           <Link href="/contact" onClick={closeMenu}>Contact</Link>
           <ThemeToggle />

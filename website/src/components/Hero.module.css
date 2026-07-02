@@ -476,10 +476,12 @@
 
 @media (max-width: 600px) {
     .hero {
-        min-height: auto;
-        padding-top: 130px; /* Account for navbar + normal top margin */
-        padding-bottom: 80px;
-        align-items: flex-start;
+        min-height: 100dvh;
+        padding-top: 100px;
+        padding-bottom: 40px;
+        align-items: center;
+        display: flex;
+        justify-content: center;
     }
 
     .container {
@@ -539,27 +541,28 @@
 
     .subtitle {
         grid-area: h2;
-        font-size: 0.65rem;
+        font-size: 0.75rem;
         margin-bottom: 0;
         align-self: flex-end;
     }
 
     .title {
         grid-area: h1;
-        font-size: 1.5rem;
+        font-size: 2rem;
         align-self: flex-start;
-        margin-top: -0.15rem;
+        margin-top: -0.1rem;
         margin-bottom: 0;
     }
 
     .description {
         grid-area: desc;
-        font-size: 0.65rem;
-        line-height: 1.4;
-        margin-top: 0.5rem;
-        margin-bottom: 0.5rem;
+        font-size: 0.95rem;
+        line-height: 1.6;
+        margin-top: 0.75rem;
+        margin-bottom: 0.75rem;
         text-align: left;
         max-width: 100%;
+        font-weight: 500;
     }
 
     .actions {
@@ -573,8 +576,8 @@
 
     .primaryBtn,
     .secondaryBtn {
-        padding: 0.5rem 0.5rem;
-        font-size: 0.55rem;
+        padding: 0.6rem 0.75rem;
+        font-size: 0.7rem;
         justify-content: center;
     }
 
