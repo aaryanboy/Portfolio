@@ -3,7 +3,16 @@
     position: relative;
     background: var(--background);
     overflow: hidden;
-    transition: background-color 0.4s ease;
+}
+
+.timelineSection::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent 0%, var(--accent-dim) 20%, var(--accent) 50%, var(--accent-dim) 80%, transparent 100%);
 }
 
 .bgGlow {
@@ -11,30 +20,29 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 70%;
-    height: 70%;
-    background: radial-gradient(circle, rgba(201, 162, 39, 0.02) 0%, transparent 60%);
+    width: 80%;
+    height: 60%;
+    background: radial-gradient(ellipse, rgba(201, 162, 39, 0.04) 0%, transparent 70%);
     pointer-events: none;
 }
 
 .sectionTitle {
-    font-size: 3rem;
+    font-size: clamp(1.6rem, 1rem + 2.2vw, 3rem);
     margin-bottom: 0.5rem;
     text-align: center;
     font-family: 'Cinzel', serif;
     font-weight: 600;
-    letter-spacing: 0.15em;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
     position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 0.75rem;
+    gap: 0.6rem;
 }
 
 .titleIcon {
-    color: var(--accent);
-    font-size: 1.25rem;
+    font-size: 0.85em;
 }
 
 .accent {
@@ -43,279 +51,148 @@
 }
 
 .subtitle {
-    text-align: center;
     color: var(--foreground-dim);
-    font-size: 1.1rem;
-    margin-bottom: 5rem;
-    letter-spacing: 0.2em;
+    font-size: clamp(0.8rem, 0.65rem + 0.4vw, 1.05rem);
+    text-align: center;
+    margin-bottom: clamp(2.5rem, 5vw, 4rem);
+    letter-spacing: 0.1em;
     text-transform: uppercase;
     font-family: 'Cinzel', serif;
 }
 
-/* ===== TIMELINE CONTAINER ===== */
-.timelineContainer {
-    position: relative;
-    width: 100%;
+/* Same grid pattern as the Projects section — every card gets its own
+   column, no alternating left/right gutter left empty. */
+.eventsGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 2rem;
+    max-width: 1320px;
     margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-}
-
-/* Central Timeline Spine */
-.timelineLine {
-    position: absolute;
-    left: 50%;
-    top: 0;
-    bottom: 0;
-    width: 2px;
-    background: linear-gradient(180deg, transparent 0%, var(--border) 10%, var(--border) 90%, transparent 100%);
-    transform: translateX(-50%);
+    position: relative;
     z-index: 1;
 }
 
-.lineGlow {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    background: var(--accent-dim);
-    box-shadow: 0 0 12px var(--accent);
-    opacity: 0.5;
-}
-
-/* Timeline Nodes */
-.eventsList {
-    position: relative;
-    z-index: 2;
-    display: flex;
-    flex-direction: column;
-    gap: 4rem;
-}
-
-.timelineNode {
-    position: relative;
-    width: 50%;
-    display: flex;
-    z-index: 2;
-}
-
-/* Alternating Alignment on Desktop */
-.leftAlign {
-    align-self: flex-start;
-    justify-content: flex-end;
-    padding-right: 3rem;
-}
-
-.rightAlign {
-    align-self: flex-end;
-    justify-content: flex-start;
-    padding-left: 3rem;
-}
-
-/* Central Node Indicator dot */
-.nodeIndicator {
-    position: absolute;
-    left: 100%;
-    top: 2.2rem;
-    transform: translate(-50%, -50%);
-    width: 22px;
-    height: 22px;
-    z-index: 5;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.leftAlign .nodeIndicator {
-    left: 100%;
-}
-
-.rightAlign .nodeIndicator {
-    left: 0%;
-}
-
-.nodeDot {
-    width: 10px;
-    height: 10px;
-    background: var(--background);
-    border: 2px solid var(--accent);
-    border-radius: 50%;
-    z-index: 2;
-    box-shadow: 0 0 10px var(--accent);
-    transition: transform 0.3s ease, background-color 0.3s ease;
-}
-
-.nodeRipple {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    border: 1px solid var(--accent-dim);
-    border-radius: 50%;
-    animation: pulseRipple 2.5s infinite ease-out;
-    opacity: 0;
-    pointer-events: none;
-}
-
-@keyframes pulseRipple {
-    0% {
-        transform: scale(0.5);
-        opacity: 0.8;
-    }
-    100% {
-        transform: scale(1.6);
-        opacity: 0;
-    }
-}
-
-/* Quest Card Styling (Clipped path border workaround) */
 .questCard {
     display: flex;
     flex-direction: column;
-    width: 100%;
-    max-width: 460px;
-    background: #dcd3b6; /* Border color background */
+    background: var(--card-bg);
+    border: 1px solid var(--border);
     padding: 1.75rem;
-    position: relative;
     text-decoration: none;
-    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
-    cursor: pointer;
-    clip-path: polygon(0 15px, 15px 0, calc(100% - 15px) 0, 100% 15px, 100% calc(100% - 15px), calc(100% - 15px) 100%, 15px 100%, 0 calc(100% - 15px));
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    color: inherit;
+    position: relative;
+    transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
+    opacity: 0;
+    transform: translateY(16px);
+    animation: cardIn 0.5s ease forwards;
+    clip-path: polygon(0 16px,
+            16px 0,
+            calc(100% - 16px) 0,
+            100% 16px,
+            100% calc(100% - 16px),
+            calc(100% - 16px) 100%,
+            16px 100%,
+            0 calc(100% - 16px));
 }
 
-.questCard::after {
-    content: '';
-    position: absolute;
-    inset: 1px;
-    background: #f4eedd;
-    background-image:
-        radial-gradient(transparent, rgba(0, 0, 0, 0.03) 100%),
-        url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100' height='100' filter='url(%23noise)' opacity='0.08'/%3E%3C/svg%3E");
-    clip-path: inherit;
-    z-index: 1;
-    transition: background-color 0.3s ease;
+@keyframes cardIn {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 .questCard:hover {
-    background: var(--accent); /* Exposes golden border on hover */
-    transform: translateY(-6px) scale(1.01);
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25), 0 0 20px rgba(201, 162, 39, 0.15);
+    transform: translateY(-6px);
+    border-color: var(--accent-dim);
+    box-shadow:
+        0 25px 60px rgba(0, 0, 0, 0.45),
+        0 0 30px rgba(201, 162, 39, 0.1);
 }
 
-.questCard:hover .nodeDot {
-    background: var(--accent);
-    transform: scale(1.2);
-}
-
-/* Card Elements positioning */
-.cardHeader,
-.questTitle,
-.questSubtitle,
-.questExcerpt,
-.questFooter {
-    position: relative;
-    z-index: 2;
-}
-
-/* Card Header details */
 .cardHeader {
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    gap: 1rem;
-    margin-bottom: 0.75rem;
-    border-bottom: 1px dashed #c0b396;
-    padding-bottom: 0.75rem;
+    justify-content: space-between;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    margin-bottom: 1rem;
+    padding-bottom: 0.85rem;
+    border-bottom: 1px dashed var(--border);
 }
 
 .questBadge {
     display: inline-flex;
     align-items: center;
-    gap: 0.35rem;
-    font-size: 0.65rem;
-    font-weight: 800;
-    letter-spacing: 0.08em;
+    gap: 0.4rem;
     font-family: 'Cinzel', serif;
-    padding: 3px 8px;
-    border-radius: 2px;
-}
-
-.expBadge {
-    background: rgba(139, 35, 35, 0.1);
-    color: #8b2323; /* Deep Red Ink */
-    border: 1px solid rgba(139, 35, 35, 0.25);
-}
-
-.certBadge {
-    background: rgba(201, 162, 39, 0.15);
-    color: #9c730a; /* Deep Gold Ink */
-    border: 1px solid rgba(201, 162, 39, 0.3);
-}
-
-.logBadge {
-    background: rgba(90, 79, 64, 0.1);
-    color: #5a4f40; /* Faded Ink */
-    border: 1px solid rgba(90, 79, 64, 0.2);
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--accent);
+    background: rgba(201, 162, 39, 0.08);
+    border: 1px solid var(--accent-dim);
+    padding: 0.35rem 0.65rem;
 }
 
 .questDate {
     display: inline-flex;
     align-items: center;
-    font-size: 0.75rem;
-    font-weight: 600;
-    color: #5a4f40;
-    font-family: 'Georgia', serif;
+    font-family: 'Cinzel', serif;
     font-style: italic;
+    font-size: 0.8rem;
+    color: var(--foreground-dim);
+    white-space: nowrap;
 }
 
-/* Card Content typography */
 .questTitle {
-    font-size: 1.25rem;
     font-family: 'Cinzel', serif;
     font-weight: 700;
-    color: #1a1611;
-    margin-bottom: 0.25rem;
+    font-size: clamp(1.15rem, 0.95rem + 0.6vw, 1.5rem);
+    letter-spacing: 0.02em;
+    color: var(--foreground);
     line-height: 1.3;
-    text-transform: uppercase;
+    margin-bottom: 0.4rem;
 }
 
 .questSubtitle {
-    font-size: 0.85rem;
-    font-family: 'Georgia', serif;
+    font-family: 'Cinzel', serif;
     font-style: italic;
-    color: #5a4f40;
-    margin-bottom: 0.75rem;
-    font-weight: 600;
+    font-weight: 500;
+    font-size: 0.9rem;
+    letter-spacing: 0.04em;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 0.85rem;
 }
 
 .questExcerpt {
-    font-size: 0.95rem;
-    line-height: 1.6;
-    color: #3b3127;
-    font-family: 'Georgia', serif;
+    color: var(--foreground-dim);
+    font-size: clamp(0.88rem, 0.8rem + 0.2vw, 1rem);
+    line-height: 1.7;
+    flex: 1;
     margin-bottom: 1.25rem;
 }
 
 .questFooter {
-    display: flex;
-    justify-content: flex-end;
+    padding-top: 1rem;
+    border-top: 1px solid var(--accent-dim);
 }
 
 .readChronicle {
-    font-size: 0.75rem;
-    font-family: 'Cinzel', serif;
-    font-weight: 800;
-    color: #8b2323;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    display: flex;
+    display: inline-flex;
     align-items: center;
-    gap: 0.35rem;
+    gap: 0.4rem;
+    font-family: 'Cinzel', serif;
+    font-weight: 700;
+    font-size: 0.8rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--accent);
     transition: gap 0.25s ease;
 }
 
 .questCard:hover .readChronicle {
-    gap: 0.6rem;
+    gap: 0.65rem;
 }
 
 .arrowIcon {
@@ -323,36 +200,17 @@
 }
 
 .questCard:hover .arrowIcon {
-    transform: translateX(2px);
+    transform: translateX(3px);
 }
 
-/* ===== RESPONSIVE MEDIA QUERIES ===== */
 @media (max-width: 992px) {
-    .timelineLine {
-        left: 20px;
+    .timelineSection {
+        padding: 80px 0;
     }
 
-    .eventsList {
-        gap: 2.5rem;
-    }
-
-    .timelineNode {
-        width: 100%;
-        align-self: flex-start;
-        padding-left: 50px;
-        padding-right: 0;
-    }
-
-    .leftAlign, .rightAlign {
-        justify-content: flex-start;
-    }
-
-    .nodeIndicator {
-        left: 20px !important;
-    }
-
-    .questCard {
-        max-width: 100%;
+    .eventsGrid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
     }
 }
 
@@ -361,41 +219,27 @@
         padding: 60px 0;
     }
 
-    .sectionTitle {
-        font-size: 1.6rem;
-    }
-
-    .subtitle {
-        margin-bottom: 3rem;
-        font-size: 0.8rem;
+    .eventsGrid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        max-width: 440px;
+        margin: 0 auto;
     }
 
     .questCard {
-        padding: 1.25rem;
-    }
-
-    .questTitle {
-        font-size: 1.1rem;
-    }
-
-    .questSubtitle {
-        font-size: 0.75rem;
-        margin-bottom: 0.5rem;
-    }
-
-    .questExcerpt {
-        font-size: 0.85rem;
-        line-height: 1.5;
-        margin-bottom: 1rem;
+        padding: 1.35rem;
     }
 
     .cardHeader {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 0.4rem;
+        gap: 0.5rem;
+    }
+
+    .questBadge {
+        font-size: 0.62rem;
+        padding: 0.3rem 0.55rem;
     }
 
     .questDate {
-        font-size: 0.7rem;
+        font-size: 0.75rem;
     }
 }

@@ -3,7 +3,6 @@
     position: relative;
     background: var(--background-secondary);
     overflow: hidden;
-    transition: background-color 0.4s ease;
 }
 
 /* Section borders */
@@ -39,10 +38,10 @@
 /* ===== HEADER ===== */
 .header {
     text-align: center;
-    margin-bottom: 3rem;
+    margin-bottom: clamp(2rem, 4vw, 3rem);
     opacity: 0;
-    transform: translateY(30px);
-    transition: opacity 0.8s ease, transform 0.8s ease;
+    transform: translateY(24px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
 }
 
 .header.visible {
@@ -51,7 +50,7 @@
 }
 
 .sectionTitle {
-    font-size: 3rem;
+    font-size: clamp(1.6rem, 1rem + 2.2vw, 3rem);
     margin-bottom: 0.5rem;
     font-family: 'Cinzel', serif;
     font-weight: 600;
@@ -80,9 +79,9 @@
 
 .subtitle {
     color: var(--foreground-dim);
-    font-size: 1.1rem;
-    margin-top: 1.5rem;
-    letter-spacing: 0.12em;
+    font-size: clamp(0.8rem, 0.65rem + 0.4vw, 1.05rem);
+    margin-top: 1.25rem;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
     font-family: 'Cinzel', serif;
 }
@@ -91,11 +90,11 @@
 .tabContainer {
     display: flex;
     justify-content: center;
-    gap: 0.75rem;
-    margin-bottom: 3rem;
+    gap: 0.65rem;
+    margin-bottom: clamp(2rem, 4vw, 3rem);
     opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.8s ease 0.15s, transform 0.8s ease 0.15s;
+    transform: translateY(16px);
+    transition: opacity 0.7s ease 0.1s, transform 0.7s ease 0.1s;
     flex-wrap: wrap;
 }
 
@@ -107,18 +106,18 @@
 .tab {
     display: flex;
     align-items: center;
-    gap: 0.6rem;
-    padding: 0.95rem 2rem;
+    gap: 0.55rem;
+    padding: 0.75rem 1.5rem;
     background: var(--card-bg);
     border: 1px solid var(--border);
     color: var(--foreground-dim);
     font-family: 'Outfit', sans-serif;
-    font-size: 0.95rem;
+    font-size: clamp(0.75rem, 0.65rem + 0.3vw, 0.9rem);
     font-weight: 600;
-    letter-spacing: 0.08em;
+    letter-spacing: 0.06em;
     text-transform: uppercase;
     cursor: pointer;
-    transition: all 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
     position: relative;
     clip-path: polygon(
         0 8px, 8px 0, calc(100% - 8px) 0, 100% 8px,
@@ -131,19 +130,17 @@
     border-color: var(--accent-dim);
     color: var(--accent);
     background: var(--card-bg-hover);
-    transform: translateY(-2px);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
 }
 
 .activeTab {
     background: var(--accent) !important;
     color: var(--background) !important;
     border-color: var(--accent) !important;
-    box-shadow: 0 0 25px rgba(201, 162, 39, 0.3), 0 8px 20px rgba(0, 0, 0, 0.4) !important;
+    box-shadow: 0 0 20px rgba(201, 162, 39, 0.25);
 }
 
 .tabIcon {
-    font-size: 1.15rem;
+    font-size: 1.05rem;
     line-height: 1;
 }
 
@@ -152,113 +149,62 @@
 }
 
 /* ===== GRID ===== */
-.gridWrapper {
-    position: relative;
-}
-
 .skillGrid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-    gap: 1.75rem;
-    animation: gridFadeIn 0.4s ease forwards;
-}
-
-@keyframes gridFadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(10px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.1rem;
 }
 
 /* ===== SKILL CARD ===== */
 .skillCard {
-    background: var(--border);
-    position: relative;
-    cursor: pointer;
-    transition: all 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
-    opacity: 0;
-    transform: translateY(20px);
-    clip-path: polygon(
-        0 12px, 12px 0, calc(100% - 12px) 0, 100% 12px,
-        100% calc(100% - 12px), calc(100% - 12px) 100%,
-        12px 100%, 0 calc(100% - 12px)
-    );
-    outline: none;
-}
-
-.skillCard::after {
-    content: '';
-    position: absolute;
-    inset: 1px;
     background: var(--card-bg);
-    clip-path: inherit;
-    z-index: 0;
-    transition: background-color 0.35s ease;
+    border: 1px solid var(--border);
+    border-left: 2px solid var(--border);
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 1.1rem 1.25rem;
+    position: relative;
+    transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1),
+                border-color 0.3s ease,
+                box-shadow 0.3s ease;
+    opacity: 0;
+    transform: translateY(14px);
+    clip-path: polygon(
+        0 10px, 10px 0, calc(100% - 10px) 0, 100% 10px,
+        100% calc(100% - 10px), calc(100% - 10px) 100%,
+        10px 100%, 0 calc(100% - 10px)
+    );
 }
 
 .cardVisible {
-    animation: cardSlideIn 0.5s ease forwards;
+    animation: cardSlideIn 0.45s ease forwards;
 }
 
 @keyframes cardSlideIn {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+    from { opacity: 0; transform: translateY(14px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 .skillCard:hover {
-    background: var(--accent-dim);
-    transform: translateY(-6px);
-    box-shadow:
-        0 15px 35px rgba(0, 0, 0, 0.4),
-        0 0 20px rgba(201, 162, 39, 0.1);
-}
-
-.skillCard:hover::after {
-    background: var(--card-bg-hover);
-}
-
-.skillCard:focus-visible {
-    background: var(--accent);
-}
-
-/* ===== CARD INNER CONTENT ===== */
-.cardTop {
-    display: flex;
-    align-items: center;
-    gap: 1.15rem;
-    padding: 1.5rem 1.5rem 0.85rem;
-    position: relative;
-    z-index: 1;
+    border-color: var(--accent-dim);
+    border-left-color: var(--accent);
+    transform: translateY(-3px);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.35), 0 0 16px rgba(201, 162, 39, 0.08);
 }
 
 .logoWrapper {
-    width: 52px;
-    height: 52px;
-    min-width: 52px;
+    width: clamp(38px, 3vw, 46px);
+    height: clamp(38px, 3vw, 46px);
+    min-width: clamp(38px, 3vw, 46px);
     display: flex;
     align-items: center;
     justify-content: center;
     background: var(--background);
     border: 1px solid var(--border);
     border-radius: 6px;
-    padding: 8px;
-    transition: all 0.35s ease;
-    box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.3);
-}
-
-.skillCard:hover .logoWrapper {
-    border-color: var(--accent-dim);
-    box-shadow: 0 0 12px rgba(201, 162, 39, 0.15), inset 0 0 8px rgba(0, 0, 0, 0.3);
+    padding: 6px;
+    margin-top: 0.15rem;
 }
 
 .cardInfo {
@@ -269,192 +215,33 @@
 .skillName {
     font-family: 'Outfit', sans-serif;
     font-weight: 700;
-    font-size: 1.25rem;
-    letter-spacing: 0.03em;
+    font-size: clamp(0.92rem, 0.8rem + 0.3vw, 1.1rem);
+    letter-spacing: 0.02em;
     color: var(--foreground);
-    text-transform: capitalize;
     line-height: 1.2;
-    margin-bottom: 0.2rem;
-}
-
-.levelBadge {
-    font-size: 0.8rem;
-    font-weight: 600;
-    color: var(--accent);
-    font-family: 'Outfit', sans-serif;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    text-shadow: 0 0 10px rgba(201, 162, 39, 0.2);
-}
-
-.expandIcon {
-    width: 28px;
-    height: 28px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--foreground-dim);
-    font-size: 1.2rem;
-    font-weight: 300;
-    border: 1px solid var(--border);
-    background: var(--background);
-    transition: all 0.3s ease;
-    flex-shrink: 0;
-    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
-}
-
-.skillCard:hover .expandIcon {
-    color: var(--accent);
-    border-color: var(--accent-dim);
-}
-
-.expanded .expandIcon {
-    background: var(--accent);
-    color: var(--background);
-    border-color: var(--accent);
-}
-
-/* ===== PROFICIENCY BAR ===== */
-.barContainer {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    padding: 0.5rem 1.5rem 1.25rem;
-    position: relative;
-    z-index: 1;
-}
-
-.barTrack {
-    flex: 1;
-    height: 8px;
-    background: var(--background);
-    border: 1px solid var(--border);
-    overflow: hidden;
-    position: relative;
-    border-radius: 2px;
-}
-
-.barFill {
-    height: 100%;
-    background: linear-gradient(90deg, var(--accent-dim), var(--accent), var(--accent-hover));
-    transition: width 1.2s cubic-bezier(0.25, 0.8, 0.25, 1);
-    position: relative;
-    overflow: hidden;
-    box-shadow: 0 0 10px rgba(201, 162, 39, 0.4);
-}
-
-.barShimmer {
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-    animation: shimmerBar 2.5s ease-in-out infinite;
-    animation-delay: 1.5s;
-}
-
-@keyframes shimmerBar {
-    0% {
-        left: -100%;
-    }
-    100% {
-        left: 200%;
-    }
-}
-
-.barLabel {
-    font-size: 0.85rem;
-    font-weight: 700;
-    color: var(--foreground-dim);
-    font-family: 'Outfit', sans-serif;
-    letter-spacing: 0.05em;
-    min-width: 28px;
-    text-align: right;
-}
-
-/* ===== EXPANDABLE DETAILS ===== */
-.details {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.4s cubic-bezier(0.25, 0.8, 0.25, 1),
-                padding 0.4s cubic-bezier(0.25, 0.8, 0.25, 1),
-                opacity 0.3s ease;
-    opacity: 0;
-    position: relative;
-    z-index: 1;
-}
-
-.detailsOpen {
-    max-height: 200px;
-    opacity: 1;
+    margin-bottom: 0.4rem;
 }
 
 .description {
-    padding: 0 1.5rem;
-    font-size: 1rem;
-    line-height: 1.6;
+    font-size: clamp(0.78rem, 0.72rem + 0.2vw, 0.88rem);
+    line-height: 1.5;
     color: var(--foreground-dim);
     font-weight: 400;
-}
-
-.projectsTag {
-    display: flex;
-    gap: 0.5rem;
-    padding: 0.85rem 1.5rem 1.5rem;
-    flex-wrap: wrap;
-    align-items: baseline;
-}
-
-.projectsLabel {
-    font-size: 0.78rem;
-    font-family: 'Outfit', sans-serif;
-    font-weight: 700;
-    color: var(--accent);
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-}
-
-.projectsList {
-    font-size: 0.95rem;
-    color: var(--foreground);
-    font-style: italic;
-    font-weight: 500;
-}
-
-/* ===== EXPANDED CARD STATE ===== */
-.expanded {
-    background: var(--accent) !important;
-    box-shadow:
-        0 20px 40px rgba(0, 0, 0, 0.5),
-        0 0 30px rgba(201, 162, 39, 0.2) !important;
-}
-
-.expanded::after {
-    background: var(--background) !important;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
 
 /* ===== RESPONSIVE ===== */
 @media (max-width: 992px) {
     .skills {
-        padding: 80px 0;
-    }
-
-    .sectionTitle {
-        font-size: 2.2rem;
+        padding: 90px 0;
     }
 
     .skillGrid {
         grid-template-columns: repeat(2, 1fr);
-    }
-
-    .tabContainer {
-        gap: 0.5rem;
-    }
-
-    .tab {
-        padding: 0.7rem 1.25rem;
-        font-size: 0.8rem;
     }
 }
 
@@ -464,102 +251,44 @@
     }
 
     .header {
-        margin-bottom: 2rem;
+        margin-bottom: 1.75rem;
     }
 
-    .sectionTitle {
-        font-size: 1.6rem;
-    }
-
-    .subtitle {
-        font-size: 0.8rem;
-        margin-top: 1rem;
-    }
-
+    /* Tabs wrap onto their own line(s) instead of scrolling off-screen,
+       so all categories stay visible without needing a horizontal swipe */
     .tabContainer {
-        gap: 0.4rem;
-        margin-bottom: 2rem;
-        overflow-x: auto;
-        flex-wrap: nowrap;
-        justify-content: flex-start;
-        padding-bottom: 0.5rem;
-        -webkit-overflow-scrolling: touch;
-        scrollbar-width: none;
-    }
-
-    .tabContainer::-webkit-scrollbar {
-        display: none;
+        gap: 0.5rem;
+        margin-bottom: 1.75rem;
+        flex-wrap: wrap;
+        overflow-x: visible;
+        justify-content: center;
     }
 
     .tab {
-        padding: 0.65rem 1.2rem;
-        font-size: 0.8rem;
-        white-space: nowrap;
-        flex-shrink: 0;
-    }
-
-    .tabIcon {
-        font-size: 0.95rem;
+        padding: 0.6rem 1rem;
+        flex: 0 1 auto;
     }
 
     .skillGrid {
-        grid-template-columns: 1fr 1fr;
-        gap: 0.85rem;
-    }
-
-    .cardTop {
-        padding: 1.15rem 1rem 0.65rem;
+        grid-template-columns: 1fr;
         gap: 0.75rem;
     }
 
-    .logoWrapper {
-        width: 42px;
-        height: 42px;
-        min-width: 42px;
-        padding: 6px;
+    .skillCard {
+        padding: 0.9rem 1rem;
+        gap: 0.75rem;
+    }
+}
+
+@media (max-width: 380px) {
+    .tab {
+        font-size: 0.7rem;
+        padding: 0.55rem 0.85rem;
     }
 
-    .skillName {
-        font-size: 0.98rem;
-    }
-
-    .levelBadge {
-        font-size: 0.72rem;
-    }
-
-    .expandIcon {
-        width: 24px;
-        height: 24px;
-        font-size: 1.1rem;
-    }
-
-    .barContainer {
-        padding: 0.25rem 1rem 1rem;
-        gap: 0.5rem;
-    }
-
-    .barTrack {
-        height: 6px;
-    }
-
-    .barLabel {
-        font-size: 0.75rem;
-    }
-
-    .description {
-        padding: 0 1rem;
-        font-size: 0.9rem;
-    }
-
-    .projectsTag {
-        padding: 0.65rem 1rem 1.15rem;
-    }
-
-    .projectsLabel {
-        font-size: 0.72rem;
-    }
-
-    .projectsList {
-        font-size: 0.85rem;
+    .tabLabel {
+        max-width: 90px;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 }
