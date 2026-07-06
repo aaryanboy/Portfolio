@@ -18,8 +18,8 @@
 }
 
 .sectionTitle {
-    font-size: 3rem;
-    margin-bottom: 4rem;
+    font-size: clamp(1.6rem, 3.5vw, 3rem);
+    margin-bottom: clamp(2rem, 4vw, 4rem);
     text-align: center;
     font-family: 'Cinzel', serif;
     font-weight: 600;
@@ -45,10 +45,14 @@
     text-shadow: 0 0 30px rgba(201, 162, 39, 0.4);
 }
 
+/* 3-up on desktop, drops to 2 on tablet, 1 on mobile.
+   align-items: stretch (default) keeps every card in a row the same height. */
 .grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-    gap: 2.5rem;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    max-width: 1320px;
+    margin: 0 auto;
     position: relative;
     z-index: 1;
 }
@@ -56,8 +60,11 @@
 .card {
     background: var(--border);
     overflow: hidden;
-    transition: all 0.5s ease;
+    transition: transform 0.35s ease, box-shadow 0.35s ease;
     position: relative;
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
     clip-path: polygon(0 20px,
             20px 0,
             calc(100% - 20px) 0,
@@ -78,12 +85,13 @@
     transition: background 0.5s ease;
 }
 
-.card:hover {
-    background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dim) 100%);
-    transform: translateY(-10px) scale(1.02);
+.card:hover,
+.card:focus-visible {
+    transform: translateY(-6px);
     box-shadow:
-        0 30px 80px rgba(0, 0, 0, 0.7),
-        0 0 50px rgba(201, 162, 39, 0.15);
+        0 25px 60px rgba(0, 0, 0, 0.6),
+        0 0 40px rgba(201, 162, 39, 0.12);
+    outline: none;
 }
 
 .imageWrapper {
@@ -91,51 +99,268 @@
     aspect-ratio: 16 / 10;
     overflow: hidden;
     z-index: 2;
-}
-
-.imageWrapper::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(0deg, var(--card-bg) 0%, transparent 30%);
-    pointer-events: none;
+    flex-shrink: 0;
 }
 
 .image {
     transition: transform 0.6s ease, filter 0.6s ease;
-    filter: saturate(0.8) brightness(0.9);
+    filter: saturate(0.85) brightness(0.92);
 }
 
 .card:hover .image {
-    transform: scale(1.15);
+    transform: scale(1.08);
     filter: saturate(1) brightness(1);
 }
 
-.overlay {
+/* Expand icon — a visual cue only; the whole card is clickable */
+.expandBtn {
     position: absolute;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.7);
+    top: 0.85rem;
+    right: 0.85rem;
+    z-index: 3;
+    width: 32px;
+    height: 32px;
     display: flex;
-    justify-content: center;
     align-items: center;
-    opacity: 0;
-    transition: all 0.4s ease;
-    backdrop-filter: blur(6px);
+    justify-content: center;
+    background: rgba(10, 10, 10, 0.55);
+    border: 1px solid var(--accent-dim);
+    color: var(--foreground);
+    backdrop-filter: blur(4px);
+    pointer-events: none;
+    clip-path: polygon(0 0,
+            calc(100% - 6px) 0,
+            100% 6px,
+            100% 100%,
+            6px 100%,
+            0 calc(100% - 6px));
+    transition: all 0.3s ease;
 }
 
-.card:hover .overlay {
-    opacity: 1;
+.card:hover .expandBtn {
+    background: var(--accent);
+    color: var(--background);
+    border-color: var(--accent);
 }
 
-.btnGroup {
+.content {
+    padding: 1.75rem;
+    position: relative;
+    z-index: 2;
     display: flex;
-    gap: 1.25rem;
-    transform: translateY(20px);
-    transition: all 0.4s ease;
+    flex-direction: column;
+    flex: 1;
 }
 
-.card:hover .btnGroup {
-    transform: translateY(0);
+/* Decorative line */
+.content::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 1.75rem;
+    width: 40px;
+    height: 1px;
+    background: var(--accent-dim);
+}
+
+.tags {
+    display: flex;
+    gap: 0.6rem;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+}
+
+.tags span {
+    font-size: 0.68rem;
+    font-weight: 600;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-family: 'Cinzel', serif;
+    padding: 0.25rem 0.5rem;
+    border: 1px solid var(--accent-dim);
+    background: rgba(201, 162, 39, 0.05);
+    white-space: nowrap;
+}
+
+.content h3 {
+    font-size: clamp(1.05rem, 1.6vw, 1.35rem);
+    margin-bottom: 0.65rem;
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    color: var(--foreground);
+    line-height: 1.35;
+}
+
+.content p {
+    color: var(--foreground-dim);
+    font-size: clamp(0.88rem, 1.1vw, 1rem);
+    line-height: 1.65;
+    /* Clamp every card description to the same number of lines so cards
+       in a row line up evenly regardless of copy length */
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* Card footer — always-visible Demo/Code/etc links */
+.footer {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    flex-wrap: wrap;
+    margin-top: 1.25rem;
+    padding-top: 1.1rem;
+    border-top: 1px solid var(--accent-dim);
+}
+
+.footerLink {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    background: none;
+    border: none;
+    padding: 0;
+    color: var(--foreground-dim);
+    text-decoration: none;
+    font-family: 'Cinzel', serif;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    cursor: pointer;
+    transition: color 0.25s ease;
+    position: relative;
+    z-index: 3;
+}
+
+.footerLink:hover {
+    color: var(--accent);
+}
+
+/* ---------------- Modal ---------------- */
+
+.modalBackdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    background: rgba(5, 5, 5, 0.85);
+    backdrop-filter: blur(8px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 1.25rem;
+    animation: fadeIn 0.25s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.modalContent {
+    position: relative;
+    width: 100%;
+    max-width: 780px;
+    max-height: 88vh;
+    overflow-y: auto;
+    background: var(--card-bg);
+    border: 1px solid var(--accent-dim);
+    padding: 2.5rem;
+    clip-path: polygon(0 28px,
+            28px 0,
+            calc(100% - 28px) 0,
+            100% 28px,
+            100% calc(100% - 28px),
+            calc(100% - 28px) 100%,
+            28px 100%,
+            0 calc(100% - 28px));
+    animation: modalRise 0.3s ease;
+}
+
+@keyframes modalRise {
+    from { opacity: 0; transform: translateY(24px) scale(0.98); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.modalContent::-webkit-scrollbar {
+    width: 6px;
+}
+
+.modalContent::-webkit-scrollbar-thumb {
+    background: var(--accent-dim);
+}
+
+.modalClose {
+    position: absolute;
+    top: 1.25rem;
+    right: 1.25rem;
+    z-index: 2;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: 1px solid var(--foreground-dim);
+    color: var(--foreground);
+    cursor: pointer;
+    clip-path: polygon(0 0,
+            calc(100% - 7px) 0,
+            100% 7px,
+            100% 100%,
+            7px 100%,
+            0 calc(100% - 7px));
+    transition: all 0.3s ease;
+}
+
+.modalClose:hover {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: var(--background);
+    box-shadow: 0 0 18px rgba(201, 162, 39, 0.4);
+}
+
+.modalTitle {
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    font-size: clamp(1.25rem, 2.5vw, 1.75rem);
+    color: var(--foreground);
+    margin-bottom: 0.75rem;
+    padding-right: 2.5rem;
+}
+
+.modalSubtitle {
+    color: var(--foreground-dim);
+    font-size: 0.95rem;
+    line-height: 1.7;
+    margin-bottom: 1.75rem;
+}
+
+.modalImageWrapper {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    margin-bottom: 1.75rem;
+    border: 1px solid var(--accent-dim);
+}
+
+.modalDetails {
+    color: var(--foreground-dim);
+    font-size: 0.95rem;
+    line-height: 1.8;
+    margin-bottom: 1.5rem;
+}
+
+.modalActions {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
 }
 
 .viewBtn,
@@ -163,6 +388,7 @@
     background: transparent;
     color: var(--foreground);
     border: 1px solid var(--foreground-dim);
+    cursor: pointer;
 }
 
 .viewBtn:hover {
@@ -176,6 +402,7 @@
     background: var(--accent);
     color: var(--background);
     border: 1px solid var(--accent);
+    cursor: pointer;
 }
 
 .liveBtn:hover {
@@ -184,102 +411,36 @@
     box-shadow: 0 0 25px rgba(201, 162, 39, 0.4);
 }
 
-.content {
-    padding: 1.75rem;
-    position: relative;
-    z-index: 2;
-}
-
-/* Decorative line */
-.content::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 1.75rem;
-    width: 40px;
-    height: 1px;
-    background: var(--accent-dim);
-}
-
-.tags {
-    display: flex;
-    gap: 0.75rem;
-    margin-bottom: 1rem;
-    flex-wrap: wrap;
-}
-
-.tags span {
-    font-size: 0.7rem;
-    font-weight: 600;
-    color: var(--accent);
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    font-family: 'Cinzel', serif;
-    padding: 0.25rem 0.5rem;
-    border: 1px solid var(--accent-dim);
-    background: rgba(201, 162, 39, 0.05);
-}
-
-.content h3 {
-    font-size: 1.4rem;
-    margin-bottom: 0.75rem;
-    font-family: 'Cinzel', serif;
-    font-weight: 600;
-    letter-spacing: 0.08em;
-    color: var(--foreground);
-}
-
-.content p {
-    color: var(--foreground-dim);
-    font-size: 1.1rem;
-    line-height: 1.8;
-}
-
+/* Tablet: 2 columns */
 @media (max-width: 992px) {
     .projects {
         padding: 80px 0;
     }
 
-    .sectionTitle {
-        font-size: 2rem;
-        margin-bottom: 3rem;
-    }
-
     .grid {
         grid-template-columns: repeat(2, 1fr);
-        max-width: 100%;
-        margin: 0 auto;
         gap: 1.5rem;
     }
 }
 
+/* Mobile: 1 column, condensed spacing */
 @media (max-width: 600px) {
     .projects {
         padding: 60px 0;
     }
 
-    .sectionTitle {
-        font-size: 1.6rem;
-        margin-bottom: 2rem;
-    }
-
     .grid {
         grid-template-columns: 1fr;
-        gap: 2rem;
-    }
-
-    .card {
-        max-width: 450px;
-        margin: 0 auto;
-        width: 100%;
+        gap: 1.5rem;
+        max-width: 440px;
     }
 
     .card:hover {
-        transform: translateY(-4px) scale(1);
+        transform: none;
     }
 
     .content {
-        padding: 1rem 1.25rem;
+        padding: 1.1rem 1.25rem 1.25rem;
     }
 
     .content::before {
@@ -287,50 +448,45 @@
     }
 
     .tags {
-        gap: 0.5rem;
-        margin-bottom: 0.75rem;
-        display: flex;
-        flex-wrap: wrap;
-        flex-direction: row;
+        gap: 0.45rem;
+        margin-bottom: 0.65rem;
     }
 
     .tags span {
-        font-size: 0.65rem;
-        padding: 0.2rem 0.45rem;
-        letter-spacing: 0.05em;
-        white-space: nowrap;
-    }
-
-    .content h3 {
-        font-size: 1.15rem;
-        margin-bottom: 0.5rem;
+        font-size: 0.62rem;
+        padding: 0.2rem 0.4rem;
         letter-spacing: 0.04em;
-        line-height: 1.3;
     }
 
-    .content p {
-        font-size: 0.92rem;
-        line-height: 1.6;
-        display: -webkit-box;
-        -webkit-line-clamp: 3;
-        line-clamp: 3;
-        -webkit-box-orient: vertical;
-        overflow: hidden;
+    .footer {
+        gap: 1.1rem;
+        margin-top: 1rem;
+        padding-top: 0.9rem;
     }
 
-    .viewBtn,
-    .liveBtn {
-        padding: 0.65rem 1.15rem;
-        font-size: 0.72rem;
+    .footerLink {
+        font-size: 0.7rem;
+    }
+
+    .expandBtn {
+        width: 28px;
+        height: 28px;
+        top: 0.6rem;
+        right: 0.6rem;
+    }
+
+    .modalContent {
+        padding: 1.5rem;
+        max-height: 92vh;
+    }
+
+    .modalActions {
+        flex-direction: column;
+    }
+
+    .modalActions a,
+    .modalActions button {
         justify-content: center;
-        align-items: center;
-        min-height: 40px;
-    }
-
-    .btnGroup {
-        gap: 0.75rem;
-        flex-direction: row;
-        flex-wrap: wrap;
-        justify-content: center;
+        width: 100%;
     }
 }
