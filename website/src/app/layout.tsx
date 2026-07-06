@@ -7,6 +7,10 @@ import AudioPlayer from "@/components/AudioPlayer";
 export const metadata: Metadata = {
   title: "Aryan Bajracharya",
   description: "A professional portfolio showcasing my work and skills.",
+  icons: {
+    icon: "/logo.png",
+    apple: "/logo-apple.png",
+  },
 };
 
 export default function RootLayout({
