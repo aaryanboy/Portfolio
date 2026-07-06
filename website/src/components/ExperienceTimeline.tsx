@@ -2,17 +2,26 @@
 
 import styles from './ExperienceTimeline.module.css';
 import Link from 'next/link';
-import { blogs } from '@/data/blogs';
-import { ArrowRight, Shield, Award, Calendar, ChevronRight } from 'lucide-react';
+import { ArrowRight, Shield, Calendar } from 'lucide-react';
+
+// Static experience/event data — add new entries here directly
+const events = [
+  {
+    id: 'participated-in-art-competetion',
+    title: 'Participated in Art Competition',
+    date: 'October, 2022',
+    category: 'Experience',
+    subHeadline: 'USAid Initiative',
+    excerpt: 'A fun and memorable experience stepping into creative expression through an art competition organized under the USAid initiative.',
+    href: '/blog/participated-in-art-competetion',
+  },
+];
 
 export default function ExperienceTimeline() {
-  // Sort blogs to put latest first (reverse of original data array)
-  const sortedEvents = [...blogs].reverse();
-
   return (
     <section id="experience" className={styles.timelineSection}>
       <div className={styles.bgGlow}></div>
-      
+
       <div className="container" style={{ position: 'relative', zIndex: 2 }}>
         <h2 className={styles.sectionTitle}>
           <span className={styles.titleIcon}>⚔️</span>
@@ -28,26 +37,7 @@ export default function ExperienceTimeline() {
           </div>
 
           <div className={styles.eventsList}>
-            {sortedEvents.map((event, idx) => {
-              // Determine if event is Experience or Certificate
-              const isCert = event.category.toLowerCase().includes('cert');
-              const isExp = event.category.toLowerCase().includes('experi'); // handles "Experience" and "Experiance"
-
-              let badgeText = "JOURNAL LOG";
-              let badgeIcon = <ChevronRight size={14} />;
-              let badgeClass = styles.logBadge;
-
-              if (isCert) {
-                badgeText = "ACHIEVEMENT: CERTIFICATE";
-                badgeIcon = <Award size={14} />;
-                badgeClass = styles.certBadge;
-              } else if (isExp) {
-                badgeText = "QUEST: EXPERIENCE";
-                badgeIcon = <Shield size={14} />;
-                badgeClass = styles.expBadge;
-              }
-
-              // Alternating alignment classes on desktop
+            {events.map((event, idx) => {
               const alignmentClass = idx % 2 === 0 ? styles.leftAlign : styles.rightAlign;
 
               return (
@@ -59,15 +49,15 @@ export default function ExperienceTimeline() {
                   </div>
 
                   {/* Quest Card */}
-                  <Link 
-                    href={`/blog/${event.id}`} 
+                  <Link
+                    href={event.href}
                     className={styles.questCard}
                     style={{ animationDelay: `${idx * 0.15}s` }}
                   >
                     <div className={styles.cardHeader}>
-                      <span className={`${styles.questBadge} ${badgeClass}`}>
-                        {badgeIcon}
-                        {badgeText}
+                      <span className={`${styles.questBadge} ${styles.expBadge}`}>
+                        <Shield size={14} />
+                        QUEST: EXPERIENCE
                       </span>
                       <span className={styles.questDate}>
                         <Calendar size={12} style={{ marginRight: '4px' }} />
@@ -76,7 +66,7 @@ export default function ExperienceTimeline() {
                     </div>
 
                     <h3 className={styles.questTitle}>{event.title}</h3>
-                    
+
                     {event.subHeadline && (
                       <h4 className={styles.questSubtitle}>{event.subHeadline}</h4>
                     )}

@@ -27,6 +27,7 @@
 :global([data-theme='dark']) .mainWrapper {
     --news-bg: var(--background, #141210);
 }
+
 .newspaperBackground {
     background-color: var(--background);
     padding: 120px 20px 80px;
@@ -128,7 +129,7 @@
 .doubleLine {
     border-top: 3px solid var(--news-ink);
     border-bottom: 1px solid var(--news-ink);
-    height: 8px; /* space between borders */
+    height: 8px;
     width: 100%;
     margin-bottom: 2.5rem;
 }
@@ -181,6 +182,10 @@
     font-weight: 700;
 }
 
+.author {
+    font-size: 0.75rem;
+}
+
 .category {
     display: inline-flex;
     align-items: center;
@@ -227,6 +232,16 @@
     padding-left: 1.5rem;
     border-left: 4px solid var(--news-ink);
     color: var(--news-ink);
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.blockquote cite {
+    font-size: 0.85rem;
+    font-weight: 400;
+    letter-spacing: 0.08em;
+    color: var(--news-ink-muted);
 }
 
 .sectionTitle {
@@ -235,6 +250,8 @@
     font-weight: 900;
     margin: 2.5rem 0 1rem 0;
     color: var(--news-ink);
+    text-transform: none;
+    letter-spacing: normal;
 }
 
 .imageWrapperRow {
