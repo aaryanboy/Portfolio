@@ -1,17 +1,18 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import dynamic from 'next/dynamic';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import styles from './ResumePage.module.css';
 
+// react-pdf relies on browser-only APIs (DOMMatrix, canvas, etc.) that
+// don't exist in Node, so this must never run during server rendering.
+const PdfViewer = dynamic(() => import('./Pdfviewer'), {
+  ssr: false,
+  loading: () => <div className={styles.loading}>Loading Viewer...</div>,
+});
+
 export default function ResumePage() {
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
   return (
     <main className={styles.main}>
       <Navbar />
@@ -28,19 +29,7 @@ export default function ResumePage() {
           </div>
 
           <div className={`${styles.resumeBox} animate-fade-in`}>
-            {mounted ? (
-              <iframe 
-                src="/resume.pdf#toolbar=0" 
-                className={styles.viewer}
-                title="Resume PDF"
-              >
-                <p>Your browser does not support iframes. 
-                  <a href="/resume.pdf">Click here to view the PDF.</a>
-                </p>
-              </iframe>
-            ) : (
-              <div className={styles.loading}>Loading Viewer...</div>
-            )}
+            <PdfViewer />
           </div>
         </div>
       </section>

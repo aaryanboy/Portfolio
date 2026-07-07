@@ -105,10 +105,11 @@
     width: 100%;
     max-width: 900px;
     margin: 0 auto;
-    aspect-ratio: 1 / 1.414;
-    /* A4 Ratio */
+    /* Was a fixed A4 aspect-ratio for a single-page iframe; now scrolls
+       to fit however many pages react-pdf renders */
+    max-height: 85vh;
+    overflow-y: auto;
     background: var(--card-bg);
-    overflow: hidden;
     border: 1px solid var(--border);
     box-shadow:
         0 20px 60px rgba(0, 0, 0, 0.6),
@@ -145,14 +146,31 @@
             0 calc(100% - 15px));
 }
 
-.viewer {
-    width: 100%;
-    height: 100%;
-    border: none;
+/* react-pdf renders each <Page> as a canvas wrapped in a div; stack them
+   with a thin gap so multi-page resumes read like separate sheets */
+.resumeBox :global(.react-pdf__Document) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 0;
+}
+
+.resumeBox :global(.react-pdf__Page__canvas) {
+    max-width: 100% !important;
+    height: auto !important;
+}
+
+.resumeBox::-webkit-scrollbar {
+    width: 6px;
+}
+
+.resumeBox::-webkit-scrollbar-thumb {
+    background: var(--border);
 }
 
 .loading {
-    height: 100%;
+    height: 300px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -161,6 +179,8 @@
     font-family: 'Cinzel', serif;
     letter-spacing: 0.1em;
     text-transform: uppercase;
+    text-align: center;
+    padding: 1rem;
 }
 
 @media (max-width: 768px) {
@@ -169,8 +189,7 @@
     }
 
     .resumeBox {
-        aspect-ratio: auto;
-        height: 600px;
+        max-height: 75vh;
         clip-path: polygon(0 15px,
                 15px 0,
                 calc(100% - 15px) 0,
