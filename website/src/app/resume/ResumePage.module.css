@@ -110,7 +110,7 @@
     max-height: 85vh;
     overflow-y: auto;
     background: var(--card-bg);
-    
+    border: 1px solid var(--border);
     box-shadow:
         0 20px 60px rgba(0, 0, 0, 0.6),
         0 0 40px rgba(201, 162, 39, 0.1);
@@ -133,7 +133,6 @@
     left: 10px;
     right: 10px;
     bottom: 10px;
-    border: 1px solid var(--border);
     pointer-events: none;
     z-index: 10;
     clip-path: polygon(0 15px,
