@@ -1,6 +1,6 @@
 
 
-go to https://aaryanboy.vercel.app/ 
+go to https://aryanbajracharya.com.np
 
 cookin
 
