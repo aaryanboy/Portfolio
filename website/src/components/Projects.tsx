@@ -115,7 +115,6 @@ export default function Projects() {
                   ))}
                 </div>
                 <h3>{project.title}</h3>
-                <p>{project.description}</p>
 
                 <div className={styles.footer}>
                   {project.live && (
@@ -127,7 +126,7 @@ export default function Projects() {
                       onClick={(e) => e.stopPropagation()}
                     >
                       <ExternalLink size={16} />
-                      Demo
+                      Website
                     </a>
                   )}
                   {project.github && (
