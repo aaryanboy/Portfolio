@@ -5,12 +5,13 @@
   }
   
   .section {
-    min-height: calc(100vh - 80px); /* swap for your navbar's real height */
+    min-height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding-top: clamp(3rem, 10vw, 8rem);
+    padding-top: calc(80px + clamp(2rem, 8vw, 5rem)); /* navbar height + breathing room — adjust 80px to your real navbar height */
     padding-bottom: clamp(3rem, 10vw, 8rem);
+    box-sizing: border-box;
   }
   
   .container {
