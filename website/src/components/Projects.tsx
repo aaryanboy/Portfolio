@@ -7,6 +7,15 @@ import { Github, ExternalLink, Copy, Check, Maximize2, X } from 'lucide-react';
 
 const projects = [
   {
+    title: "Same Sky",
+    description: "A two-person real-time photo booth for long-distance couples, built with Next.js, Socket.io, and WebRTC.",
+    details: "Lets long-distance couples join a session with a short room code and connect over peer-to-peer WebRTC video, signaled through a custom Socket.io server. Both sides pick a frame and trigger a synced 3-2-1 countdown over a WebRTC data channel, then each browser composites the two video feeds client-side with the Canvas API into a downloadable eclipse-style photo. Ships as two separate services: a Next.js frontend on Vercel and a long-lived Socket.io signaling server on Render.",
+    image: "/images/samesky.png",
+    tags: ["Next.js", "Socket.io", "WebRTC"],
+    github: "https://github.com/aaryanboy/polaroid",
+    live: "https://polaroid-smoky.vercel.app/"
+  },
+  {
     title: "Full Stack E-Commerce Platform",
     description: "A modern, full-featured e-commerce platform built with Next.js, MongoDB, and eSewa payment integration. Designed for mini markets with dual-role functionality for owners and customers.",
     details: "Features dual dashboards for shop owners and customers, real-time inventory management, and native eSewa payment integration for local transactions. Built with a focus on performance and a clean, mobile-first shopping experience tailored for small mini-market businesses.",
@@ -14,15 +23,6 @@ const projects = [
     tags: ["Next.js", "MongoDB", "eSewa API"],
     github: "https://github.com/aaryanboy/ecom",
     live: "https://na-pukhu-mini-market.vercel.app/"
-  },
-  {
-    title: "Shopify Store",
-    description: "Hoodie store using shopify made as my e-commerce project.. with shopify partner plan.. ",
-    details: "A hoodie storefront built on Shopify's partner plan, with custom theme tweaks and Pinterest-driven marketing to test organic traffic and conversion strategies outside a typical paid-ads funnel.",
-    image: "/images/shopify.png",
-    tags: ["Shopify", "Pinterest"],
-    live: "https://aryan-bmc.myshopify.com/",
-    password: "GOD"
   },
   {
     title: "TopDown RPG",
@@ -42,6 +42,15 @@ const projects = [
     github: "https://github.com/aaryanboy/Mini-Job",
     live: "https://mini-job-frontend.vercel.app/",
     figma: "https://www.figma.com/design/4wd6hBQDvceTUOiU4Qu5Ul/minijobs?node-id=2008-3&t=voGUIYUrOe978CEm-1"
+  },
+  {
+    title: "Shopify Store",
+    description: "Hoodie store using shopify made as my e-commerce project.. with shopify partner plan.. ",
+    details: "A hoodie storefront built on Shopify's partner plan, with custom theme tweaks and Pinterest-driven marketing to test organic traffic and conversion strategies outside a typical paid-ads funnel.",
+    image: "/images/shopify.png",
+    tags: ["Shopify", "Pinterest"],
+    live: "https://aryan-bmc.myshopify.com/",
+    password: "GOD"
   },
   {
     title: "PunyaJewellery",

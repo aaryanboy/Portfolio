@@ -33,6 +33,15 @@ interface ExperienceEvent {
 // -----------------------------------------------------------------------
 const events: ExperienceEvent[] = [
   {
+    id: 'qa-hunting-bugs-workshop',
+    title: 'QA: Hunting Bugs Workshop',
+    date: 'January, 2026',
+    category: 'Experience',
+    subHeadline: 'SkillShikshya',
+    excerpt: 'A comprehensive 2-day workshop diving into QA basics, manual testing, and bug hunting strategies.',
+    href: '/blog/qa-hunting-bugs-workshop',
+  },
+  {
     id: 'particidfgpated-in-art-competetion',
     title: 'Participated in Art Competition',
     date: 'October, 2022',
@@ -49,7 +58,7 @@ const events: ExperienceEvent[] = [
 
 export default function ExperienceTimeline() {
   return (
-    <section id="experience" className={styles.timelineSection}>
+    <section id="blog" className={styles.timelineSection}>
       <div className={styles.bgGlow}></div>
 
       <div className="container" style={{ position: 'relative', zIndex: 2 }}>

@@ -16,10 +16,12 @@ export default function ContactPage() {
   // 2. Create an account and add an Email Service (e.g., Gmail)
   // 3. Create an Email Template with variables: {{name}}, {{email}}, {{subject}}, {{message}}
   // 4. Paste your IDs below:
+
+  // plesse dont steal this haha 
   // =========================================================================
-  const SERVICE_ID = "service_vocgy1k";
-  const TEMPLATE_ID = "template_xq59w69";
-  const PUBLIC_KEY = "Y6oMB_oUuvkqvI5aH";
+  const SERVICE_ID = "service_xacwaa7";
+  const TEMPLATE_ID = "template_hrxd1fi";
+  const PUBLIC_KEY = "gMbK5rCKLxurv1344";
   // =========================================================================
 
   const [formData, setFormData] = useState({
@@ -72,7 +74,7 @@ export default function ContactPage() {
             <div className={styles.info}>
               <div className={styles.infoItem}>
                 <h3>Email</h3>
-                <p>aaryanboy12@gmail.com</p>
+                <p>aryanbajracharya12345@gmail.com</p>
               </div>
               <div className={styles.infoItem}>
                 <h3>Location</h3>

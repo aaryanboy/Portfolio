@@ -34,7 +34,7 @@ export default function Footer() {
           </div>
 
           <div className={styles.footerText}>
-            <p>&copy; {new Date().getFullYear()} Some paths are meant to be walked slowly.</p>
+            <p> Some paths are meant to be walked slowly.</p>
             <p>Inspired heavily by my friend -Rijan Buddhacharya</p>
           </div>
 
