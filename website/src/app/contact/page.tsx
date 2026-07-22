@@ -67,7 +67,7 @@ export default function ContactPage() {
         <div className={`container ${styles.container}`}>
           <div className={`${styles.header} animate-fade-in`}>
             <h1>Get in Touch<span>.</span></h1>
-            <p>I'd love to hear from you. Send me a message and I'll get back to you as soon as possible.</p>
+            <p>I&apos;d love to hear from you. Send me a message and I&apos;ll get back to you as soon as possible.</p>
           </div>
 
           <div className={`${styles.content} animate-fade-in`}>

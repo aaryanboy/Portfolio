@@ -1,0 +1,161 @@
+/* src/app/tools/nepal-gold-silver-price/GoldSilverPage.module.css */
+
+.main {
+    min-height: 100vh;
+  }
+  
+  .section {
+    min-height: calc(100vh - 80px); /* swap for your navbar's real height */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: clamp(3rem, 10vw, 8rem);
+    padding-bottom: clamp(3rem, 10vw, 8rem);
+  }
+  
+  .container {
+    max-width: 900px;
+    width: 100%;
+  }
+  
+  .header {
+    text-align: center;
+    margin-bottom: clamp(1.5rem, 5vw, 3rem);
+  }
+  
+  .header h1 {
+    font-size: clamp(1.75rem, 6vw, 3rem);
+    line-height: 1.2;
+  }
+  
+  .titleRow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+  
+  .header h1 span {
+    color: #d4af37;
+  }
+  
+  .dateBadge {
+    background: #b3312c;
+    color: #fff;
+    font-size: 0.8rem;
+    font-weight: 700;
+    padding: 0.3rem 0.75rem;
+    border-radius: 999px;
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+  }
+  
+  .header p {
+    color: rgba(0, 0, 0, 0.55);
+    margin-top: 0.75rem;
+    font-size: clamp(0.85rem, 3vw, 1rem);
+    padding: 0 1rem;
+  }
+  
+  :global(.dark) .header p {
+    color: rgba(255, 255, 255, 0.65);
+  }
+  
+  .error {
+    text-align: center;
+    color: #e05555;
+  }
+  
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    padding: 0 1rem;
+  }
+  
+  @media (max-width: 640px) {
+    .grid {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+  }
+  
+  /* Light mode (default) */
+  .card {
+    border-radius: 1rem;
+    padding: 1.75rem;
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    background: #fdfcf9;
+  }
+  
+  .goldCard {
+    border-color: rgba(180, 140, 30, 0.25);
+    background: linear-gradient(160deg, #fff6df, #fdfaf1);
+  }
+  
+  .silverCard {
+    border-color: rgba(120, 130, 145, 0.25);
+    background: linear-gradient(160deg, #eef1f4, #fbfbfc);
+  }
+  
+  .label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: rgba(0, 0, 0, 0.5);
+  }
+  
+  .price {
+    font-size: clamp(1.75rem, 6vw, 2.25rem);
+    font-weight: 700;
+    margin-top: 0.5rem;
+    color: #8a6a10;
+  }
+  
+  .silverCard .price {
+    color: #3f4a58;
+  }
+  
+  .change {
+    color: #1a9c5c;
+    font-size: 0.9rem;
+    margin-top: 0.25rem;
+    font-weight: 600;
+  }
+  
+  .subPrice {
+    font-size: 0.9rem;
+    color: rgba(0, 0, 0, 0.45);
+    margin-top: 0.75rem;
+  }
+  
+  /* Dark mode overrides */
+  :global(.dark) .card {
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: #14140f;
+  }
+  
+  :global(.dark) .goldCard {
+    border-color: rgba(212, 175, 55, 0.35);
+    background: linear-gradient(160deg, rgba(212, 175, 55, 0.12), rgba(20, 20, 15, 0.4));
+  }
+  
+  :global(.dark) .silverCard {
+    border-color: rgba(160, 174, 192, 0.35);
+    background: linear-gradient(160deg, rgba(160, 174, 192, 0.12), rgba(20, 20, 15, 0.4));
+  }
+  
+  :global(.dark) .label {
+    color: rgba(255, 255, 255, 0.55);
+  }
+  
+  :global(.dark) .price,
+  :global(.dark) .silverCard .price {
+    color: #f4e8c1;
+  }
+  
+  :global(.dark) .subPrice {
+    color: rgba(255, 255, 255, 0.45);
+  }

@@ -1,64 +1,72 @@
 // src/app/tools/nepal-gold-silver-price/page.tsx
+import Navbar from '@/components/Navbar';
+import Footer from '@/components/Footer';
 import { getGoldSilverPrice } from '@/lib/gold-price';
+import styles from './GoldSilverPage.module.css';
 
 export const revalidate = 3600;
 
-export default async function GoldPricePage() {
+export default async function GoldSilverPage() {
   const { gold, silver, updatedAt } = await getGoldSilverPrice();
 
-  if (!gold.tola || !gold.tenGram || !silver.tola || !silver.tenGram) {
-    return (
-      <div className="p-8">
-        <h1 className="text-3xl font-bold mb-1">
-          Today&apos;s Gold &amp; Silver Price in Nepal
-        </h1>
-        <p className="text-red-500 mt-4">
-          Price data is temporarily unavailable. Please try again shortly.
-        </p>
-      </div>
-    );
-  }
+  const hasData = gold.tola && gold.tenGram && silver.tola && silver.tenGram;
+
+  const dateLabel = new Date(updatedAt).toLocaleDateString('en-GB', {
+    day: '2-digit',
+    month: 'short',
+    year: 'numeric',
+  });
 
   return (
-    <div className="p-8">
-      <h1 className="text-3xl font-bold mb-1">
-        Today&apos;s Gold &amp; Silver Price in Nepal
-      </h1>
-      <p className="text-sm text-gray-400 mb-6">
-        Updated {new Date(updatedAt).toLocaleString()}
-      </p>
+    <main className={styles.main}>
+      <Navbar />
+      <section className={styles.section}>
+        <div className={`container ${styles.container}`}>
+          <div className={`${styles.header} animate-fade-in`}>
+            <div className={styles.titleRow}>
+                
+              <h1>
+                Gold &amp; Silver Price<span>.</span>
+              </h1>
+              <span className={styles.dateBadge}>{dateLabel}</span>
+            </div>
+            <p>Today&apos;s official gold and silver rate in Nepal, per tola and per 10 gram.</p>
+          </div>
 
-      <div className="grid grid-cols-2 gap-6">
-        <div className="rounded-xl bg-gradient-to-br from-yellow-100 to-yellow-50 p-6">
-          <span className="text-xs font-bold text-red-700 uppercase">
-            Gold &middot; 1 Tola
-          </span>
-          <p className="text-4xl font-bold mt-2">
-            Rs. {gold.tola.price.toLocaleString()}/-
-          </p>
-          <p className="text-green-600 text-sm mt-1">
-            ▲ Rs. {gold.tola.change.toLocaleString()} (+{gold.tola.changePercent}%)
-          </p>
-          <p className="text-gray-500 text-sm mt-2">
-            10 Gram: Rs. {gold.tenGram.price.toLocaleString()}
-          </p>
-        </div>
+          {!hasData ? (
+            <div className={`${styles.priceBox} animate-fade-in`}>
+              <p className={styles.error}>
+                Price data is temporarily unavailable. Please check back shortly.
+              </p>
+            </div>
+          ) : (
+            <div className={`${styles.grid} animate-fade-in`}>
+              <div className={`${styles.card} ${styles.goldCard}`}>
+                <span className={styles.label}>Gold &middot; 1 Tola</span>
+                <p className={styles.price}>Rs. {gold.tola!.price.toLocaleString()}/-</p>
+                <p className={styles.change}>
+                  ▲ Rs. {gold.tola!.change.toLocaleString()} (+{gold.tola!.changePercent}%)
+                </p>
+                <p className={styles.subPrice}>
+                  10 Gram: Rs. {gold.tenGram!.price.toLocaleString()}
+                </p>
+              </div>
 
-        <div className="rounded-xl bg-gradient-to-br from-slate-100 to-slate-50 p-6">
-          <span className="text-xs font-bold text-slate-700 uppercase">
-            Silver &middot; 1 Tola
-          </span>
-          <p className="text-4xl font-bold mt-2">
-            Rs. {silver.tola.price.toLocaleString()}/-
-          </p>
-          <p className="text-green-600 text-sm mt-1">
-            ▲ Rs. {silver.tola.change.toLocaleString()} (+{silver.tola.changePercent}%)
-          </p>
-          <p className="text-gray-500 text-sm mt-2">
-            10 Gram: Rs. {silver.tenGram.price.toLocaleString()}
-          </p>
+              <div className={`${styles.card} ${styles.silverCard}`}>
+                <span className={styles.label}>Silver &middot; 1 Tola</span>
+                <p className={styles.price}>Rs. {silver.tola!.price.toLocaleString()}/-</p>
+                <p className={styles.change}>
+                  ▲ Rs. {silver.tola!.change.toLocaleString()} (+{silver.tola!.changePercent}%)
+                </p>
+                <p className={styles.subPrice}>
+                  10 Gram: Rs. {silver.tenGram!.price.toLocaleString()}
+                </p>
+              </div>
+            </div>
+          )}
         </div>
-      </div>
-    </div>
+      </section>
+      <Footer />
+    </main>
   );
 }
